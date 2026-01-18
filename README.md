@@ -124,6 +124,21 @@ Run the JAR:
 java -jar target/springboot-app-0.0.1-SNAPSHOT.jar
 ```
 
+## ☁️ Deploying to Render
+
+This application is ready to deploy on Render! See the [DEPLOYMENT.md](DEPLOYMENT.md) guide for step-by-step instructions on:
+- Setting up your MongoDB database
+- Deploying to Render using Infrastructure as Code
+- Configuring environment variables
+- Troubleshooting common issues
+
+Quick start:
+1. Push this repository to GitHub
+2. Create a [Render account](https://render.com)
+3. Create a new Blueprint and connect your repository
+4. Set the `MONGODB_URI` environment variable
+5. Deploy!
+
 ## 📚 Technology Stack Summary
 
 | Category | Technology | Purpose |
