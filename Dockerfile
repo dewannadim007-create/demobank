@@ -34,5 +34,5 @@ ENV PORT=8080
 
 # Run the application
 # Note: MONGODB_URI must be provided at runtime via environment variable
-# Using shell form to allow environment variable expansion
-CMD java -Dserver.port=$PORT -Dspring.data.mongodb.uri=$MONGODB_URI -jar app.jar
+# Using exec form with sh -c for proper signal handling and env var expansion
+CMD ["sh", "-c", "java -Dserver.port=$PORT -Dspring.data.mongodb.uri=$MONGODB_URI -jar app.jar"]
