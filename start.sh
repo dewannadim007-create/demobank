@@ -7,6 +7,13 @@ echo "===================="
 echo "Starting application"
 echo "===================="
 
+# Validate required environment variable
+if [ -z "$MONGODB_URI" ]; then
+    echo "ERROR: MONGODB_URI environment variable is not set"
+    echo "Please set the MONGODB_URI environment variable in your Render dashboard"
+    exit 1
+fi
+
 # Set the PORT environment variable (Render provides this)
 export PORT=${PORT:-8080}
 

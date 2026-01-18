@@ -12,5 +12,3 @@ services:
         value: 3.9.12
       - key: MONGODB_URI
         sync: false
-      - key: SERVER_PORT
-        value: 8080
