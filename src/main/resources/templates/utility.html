@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utility & Recharge - E-Wallet Banking</title>
+    <link rel="stylesheet" href="/css/modern-banking.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- INLINED SIDEBAR -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fas fa-university"></i> <span>E-WALLET</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a th:href="@{/home}">
+                        <i class="fas fa-home"></i> <span>Dashboard</span>
+                    </a></li>
+                <li><a th:href="@{/ebanking}">
+                        <i class="fas fa-university"></i> <span>E-Banking</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-send-money}">
+                        <i class="fas fa-paper-plane"></i> <span>Send Money</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-utility}" class="active">
+                        <i class="fas fa-lightbulb"></i> <span>Bill Pay</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-statement}">
+                        <i class="fas fa-file-invoice-dollar"></i> <span>Statement</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-menu}">
+                        <i class="fas fa-cog"></i> <span>Settings</span>
+                    </a></li>
+                <li><a th:href="@{/logout}" style="color: var(--danger);">
+                        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                    </a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- INLINED MOBILE HEADER -->
+            <div class="mobile-header">
+                <h3>E-WALLET</h3>
+                <div class="mobile-actions">
+                    <button id="themeToggleMobile" class="toggle-btn"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+
+            <!-- INLINED TOP BAR -->
+            <div class="top-bar">
+                <button id="sidebarToggle" class="toggle-btn" title="Toggle Sidebar"><i
+                        class="fas fa-bars"></i></button>
+                <div style="flex:1"></div>
+                <button id="themeToggle" class="toggle-btn" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+            </div>
+
+            <!-- PAGE CONTENT -->
+            <section class="page-content">
+                <div class="page-header" style="border-radius: var(--radius); margin-bottom: 2rem;">
+                    <h2 style="margin: 0;">Utility & Recharge</h2>
+                    <p style="opacity: 0.9;">Pay bills seamlessly with zero fees</p>
+                </div>
+
+                <div class="actions-grid">
+                    <div class="action-card" onclick="window.location.href='/utility/to-payment'">
+                        <i class="fas fa-bolt" style="color: #f1c40f;"></i>
+                        <span>Electricity Bill</span>
+                        <small style="color: #666; display: block; margin-top: 5px;">DESCO / DPDC</small>
+                    </div>
+
+                    <div class="action-card" onclick="window.location.href='/utility/to-gas'">
+                        <i class="fas fa-fire" style="color: #e67e22;"></i>
+                        <span>Gas Bill</span>
+                        <small style="color: #666; display: block; margin-top: 5px;">Titas Gas / Karnaphuli</small>
+                    </div>
+
+                    <div class="action-card" onclick="window.location.href='/utility/to-recharge'">
+                        <i class="fas fa-mobile-alt" style="color: #2980b9;"></i>
+                        <span>Mobile Recharge</span>
+                        <small style="color: #666; display: block; margin-top: 5px;">Grameen / Robi / BL</small>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/js/dashboard.js"></script>
+</body>
+
+</html>

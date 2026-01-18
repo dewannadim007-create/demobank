@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - E-Wallet Banking</title>
+    <link rel="stylesheet" href="/css/modern-banking.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- INLINED SIDEBAR -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fas fa-university"></i> <span>E-WALLET</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a th:href="@{/home}">
+                        <i class="fas fa-home"></i> <span>Dashboard</span>
+                    </a></li>
+                <li><a th:href="@{/ebanking}">
+                        <i class="fas fa-university"></i> <span>E-Banking</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-send-money}">
+                        <i class="fas fa-paper-plane"></i> <span>Send Money</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-utility}">
+                        <i class="fas fa-lightbulb"></i> <span>Bill Pay</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-statement}">
+                        <i class="fas fa-file-invoice-dollar"></i> <span>Statement</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-history}">
+                        <i class="fas fa-history"></i> <span>Transaction History</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-menu}" class="active">
+                        <i class="fas fa-cog"></i> <span>Settings</span>
+                    </a></li>
+                <li><a th:href="@{/logout}" style="color: var(--danger);">
+                        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                    </a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- INLINED MOBILE HEADER -->
+            <div class="mobile-header">
+                <h3>E-WALLET</h3>
+                <div class="mobile-actions">
+                    <button id="themeToggleMobile" class="toggle-btn"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+
+            <!-- INLINED TOP BAR -->
+            <div class="top-bar">
+                <button id="sidebarToggle" class="toggle-btn" title="Toggle Sidebar"><i
+                        class="fas fa-bars"></i></button>
+                <div style="flex:1"></div>
+                <button id="themeToggle" class="toggle-btn" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+            </div>
+
+            <!-- PAGE CONTENT -->
+            <section class="page-content">
+                <div class="page-header">
+                    <h2>Settings & Tools</h2>
+                    <p>Manage your account, security, and preferences</p>
+                </div>
+
+                <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                    <div class="section-card" onclick="window.location.href='/menu/to-user-profile'"
+                        style="cursor:pointer; display:flex; gap:1rem; align-items:center;">
+                        <div class="settings-icon" style="background:#e0f2f1;">
+                            <i class="fas fa-user-circle" style="color: var(--primary-color);"></i>
+                        </div>
+                        <div>
+                            <h3 style="margin:0; font-size: 1.1rem;">My Profile</h3>
+                            <p class="muted-text" style="margin:5px 0 0 0; font-size: 0.9rem;">View account details</p>
+                        </div>
+                    </div>
+
+                    <div class="section-card" onclick="window.location.href='/menu/to-password'"
+                        style="cursor:pointer; display:flex; gap:1rem; align-items:center;">
+                        <div class="settings-icon" style="background:#e0f2f1;">
+                            <i class="fas fa-key" style="color: var(--primary-color);"></i>
+                        </div>
+                        <div>
+                            <h3 style="margin:0; font-size: 1.1rem;">Change PIN</h3>
+                            <p class="muted-text" style="margin:5px 0 0 0; font-size: 0.9rem;">Update account security
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="section-card" onclick="window.location.href='/menu/to-login'"
+                        style="cursor:pointer; display:flex; gap:1rem; align-items:center; background:#ffebee; border-color:#ef5350;">
+                        <div class="settings-icon" style="background:#ffcdd2; color:#b71c1c;">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        <div>
+                            <h3 style="margin:0; font-size: 1.1rem; color: #c62828;">Logout</h3>
+                            <p style="margin:5px 0 0 0; font-size: 0.9rem; opacity: 0.8;">Sign out of your session</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/js/dashboard.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheque Book Requests - Admin E-Wallet</title>
+    <link rel="stylesheet" href="/css/modern-banking.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="admin-theme">
+    <div class="dashboard-container">
+        <!-- ADMIN SIDEBAR -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fas fa-shield-alt"></i> <span>ADMIN</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a th:href="@{/admin/home}">
+                        <i class="fas fa-home"></i> <span>Dashboard</span>
+                    </a></li>
+                <li><a th:href="@{/admin/users}">
+                        <i class="fas fa-users"></i> <span>Manage Users</span>
+                    </a></li>
+                <li><a th:href="@{/admin/add-user}">
+                        <i class="fas fa-user-plus"></i> <span>Add User</span>
+                    </a></li>
+                <li><a th:href="@{/admin/transactions}">
+                        <i class="fas fa-exchange-alt"></i> <span>Transactions</span>
+                    </a></li>
+                <li><a th:href="@{/admin/cheque-status}" class="active">
+                        <i class="fas fa-money-check"></i> <span>Cheque Books</span>
+                    </a></li>
+                <li><a th:href="@{/admin/logout}" style="color: var(--danger);">
+                        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                    </a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div class="mobile-header">
+                <h3>CHEQUE REQUESTS</h3>
+                <div class="mobile-actions">
+                    <button id="themeToggleMobile" class="toggle-btn"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+
+            <div class="top-bar">
+                <button id="sidebarToggle" class="toggle-btn"><i class="fas fa-bars"></i></button>
+                <div style="flex:1"></div>
+                <button id="themeToggle" class="toggle-btn"><i class="fas fa-moon"></i></button>
+            </div>
+
+            <section class="page-content">
+                <style>
+                    .selected-row {
+                        background: #f1f5f9;
+                    }
+                </style>
+                <div class="section-card"
+                    style="display:flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                    <div>
+                        <p class="muted-text" style="margin:0;">Manage user cheque book applications</p>
+                        <h2 style="margin:0;">Cheque Book Requests</h2>
+                    </div>
+                </div>
+
+                <div class="section-card" style="margin-bottom:1rem;">
+                    <form action="/admin/cheque-status" method="get" style="display:flex; gap:0.5rem; flex-wrap: wrap;">
+                        <input type="text" name="search" class="form-control" placeholder="Search by name or account..."
+                            th:value="${searchTerm}" style="flex: 2; min-width: 200px;">
+
+                        <select name="status" class="form-control" style="flex: 1; min-width: 150px;">
+                            <option value="All">All Status</option>
+                            <option value="Pending" th:selected="${selectedStatus == 'Pending'}">Pending</option>
+                            <option value="Success" th:selected="${selectedStatus == 'Success'}">Approved</option>
+                            <option value="Declined" th:selected="${selectedStatus == 'Declined'}">Declined</option>
+                            <option value="Deleted" th:selected="${selectedStatus == 'Deleted'}">Deleted</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-filter"></i> Filter</button>
+                        <a href="/admin/cheque-status" class="btn btn-secondary">Reset</a>
+                    </form>
+                </div>
+
+                <div class="section-card" style="padding:0;">
+                    <div style="overflow-x:auto;">
+                        <table class="data-table cheque-table">
+                            <thead>
+                                <tr>
+                                    <th>Account No</th>
+                                    <th>Name</th>
+                                    <th>Pages</th>
+                                    <th>Quantity</th>
+                                    <th>Applied Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="cheque : ${cheques}" onclick="selectRow(this)" class="table-row-link">
+                                    <td style="font-family: monospace;" th:text="${cheque.id}">Account</td>
+                                    <td th:text="${cheque.name}">Name</td>
+                                    <td th:text="${cheque.nid}">Page</td>
+                                    <td th:text="${cheque.email}">Quantity</td>
+                                    <td th:text="${cheque.address}">Date</td>
+                                    <td>
+                                        <span class="badge"
+                                            th:classappend="${cheque.accountType == 'Success'} ? 'success' : (${cheque.accountType == 'Declined'} ? 'warn' : 'info')"
+                                            th:text="${cheque.accountType}">Pending</span>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(cheques)}">
+                                    <td colspan="6" style="text-align:center; padding: 1.5rem;" class="muted-text">
+                                        <i class="fas fa-money-check"
+                                            style="font-size: 2rem; margin-bottom: 10px; opacity: 0.5;"></i><br>
+                                        No pending cheque book requests.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="actionPanel" class="section-card"
+                    style="margin-top: 1rem; display:none; align-items:center; justify-content: space-between; gap:1rem; background:#f8fdff;">
+                    <div class="muted-text" style="font-weight:600;">Action for Account: <span id="displayAccount"
+                            style="color:var(--primary-color);"></span></div>
+
+                    <form action="/admin/api/cheque-status/update" method="post" style="display:flex; gap:10px;">
+                        <input type="hidden" name="accountId" id="selectedAccount">
+
+                        <button type="submit" name="action" value="approve" class="btn btn-primary"
+                            style="background-color: var(--success);">
+                            <i class="fas fa-check"></i> Success
+                        </button>
+
+                        <button type="submit" name="action" value="reject" class="btn btn-secondary"
+                            style="background-color: #fdd835; color: #333;">
+                            <i class="fas fa-ban"></i> Declined
+                        </button>
+
+                        <button type="submit" name="action" value="delete" class="btn btn-danger"
+                            onclick="return confirm('Delete this record permanently?');">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </button>
+                    </form>
+                </div>
+
+                <p class="muted-text" id="instructionText" style="text-align:center; margin-top:1rem;">
+                    <i class="fas fa-info-circle"></i> Click a row to manage the request.
+                </p>
+
+                <div class="section-card" th:if="${successMessage}" style="margin-top:1rem; background:#e8f5e9;">
+                    <span class="badge" style="background:#2e7d32; color:#fff;">Success</span>
+                    <p style="margin:0.25rem 0 0 0;" th:text="${successMessage}">Updated</p>
+                </div>
+
+                <script>
+                    function selectRow(row) {
+                        document.querySelectorAll('.cheque-table tbody tr').forEach(r => r.classList.remove('selected-row'));
+                        row.classList.add('selected-row');
+
+                        const account = row.cells[0].textContent.trim();
+                        document.getElementById('selectedAccount').value = account;
+                        document.getElementById('displayAccount').textContent = account;
+
+                        document.getElementById('actionPanel').style.display = 'flex';
+                        document.getElementById('instructionText').style.display = 'none';
+                    }
+                </script>
+            </section>
+        </main>
+    </div>
+    <script src="/js/dashboard.js"></script>
+</body>
+
+</html>

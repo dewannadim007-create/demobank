@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Money - E-Wallet Banking</title>
+    <link rel="stylesheet" href="/css/modern-banking.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- INLINED SIDEBAR -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fas fa-university"></i> <span>E-WALLET</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a th:href="@{/home}">
+                        <i class="fas fa-home"></i> <span>Dashboard</span>
+                    </a></li>
+                <li><a th:href="@{/ebanking}" class="active">
+                        <i class="fas fa-university"></i> <span>E-Banking</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-send-money}">
+                        <i class="fas fa-paper-plane"></i> <span>Send Money</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-utility}">
+                        <i class="fas fa-lightbulb"></i> <span>Bill Pay</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-statement}">
+                        <i class="fas fa-file-invoice-dollar"></i> <span>Statement</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-menu}">
+                        <i class="fas fa-cog"></i> <span>Settings</span>
+                    </a></li>
+                <li><a th:href="@{/logout}" style="color: var(--danger);">
+                        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                    </a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- INLINED MOBILE HEADER -->
+            <div class="mobile-header">
+                <h3>E-WALLET</h3>
+                <div class="mobile-actions">
+                    <button id="themeToggleMobile" class="toggle-btn"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+
+            <!-- INLINED TOP BAR -->
+            <div class="top-bar">
+                <button id="sidebarToggle" class="toggle-btn" title="Toggle Sidebar"><i
+                        class="fas fa-bars"></i></button>
+                <div style="flex:1"></div>
+                <button id="themeToggle" class="toggle-btn" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+            </div>
+
+            <!-- PAGE CONTENT -->
+            <section class="page-content">
+                <div class="page-header">
+                    <h2>Add Money</h2>
+                    <p>Transfer from Linked Bank Account</p>
+                </div>
+
+                <div class="auth-card" style="max-width: 520px; margin: 0 auto; box-shadow: var(--shadow-md);">
+                    <div class="text-center mb-2">
+                        <i class="fas fa-hand-holding-usd fa-3x" style="color: var(--success);"></i>
+                        <h3 style="margin-top: 10px;">Load Wallet</h3>
+                    </div>
+
+                    <div class="section-card"
+                        style="text-align:center; margin-bottom:1rem; background:#e8f5e9; border-color:#c8e6c9;">
+                        <span style="display: block; font-size: 0.9rem; color: #2e7d32;">Linked Bank Balance</span>
+                        <span style="font-weight: bold; color: #1b5e20; font-size: 1.2rem;"
+                            th:text="${balance != null ? '৳ ' + balance : '---'}">৳ 0.00</span>
+                    </div>
+
+                    <form action="/api/add-money" method="post">
+                        <div class="form-group">
+                            <label>Amount (Tk)</label>
+                            <input type="number" name="amount" class="form-control" placeholder="0.00" min="50"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            Add Money <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+
+                    <div th:if="${successMessage}" class="section-card"
+                        style="margin-top: 15px; color: #1b5e20; background-color: #d4edda; text-align: center;">
+                        <i class="fas fa-check-circle"></i> <span th:text="${successMessage}">Success</span>
+                    </div>
+                    <div th:if="${errorMessage}" class="section-card"
+                        style="margin-top: 15px; color: #721c24; background-color: #f8d7da; text-align: center;">
+                        <i class="fas fa-exclamation-circle"></i> <span th:text="${errorMessage}">Error</span>
+                    </div>
+
+                    <div class="text-center mt-2">
+                        <a href="/ebanking" style="color: var(--text-secondary); font-size: 0.9rem;">Back to
+                            E-Banking</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/js/dashboard.js"></script>
+</body>
+
+</html>

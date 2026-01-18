@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Funds - E-Wallet Banking</title>
+    <link rel="stylesheet" href="/css/modern-banking.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- INLINED SIDEBAR -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fas fa-university"></i> <span>E-WALLET</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a th:href="@{/home}">
+                        <i class="fas fa-home"></i> <span>Dashboard</span>
+                    </a></li>
+                <li><a th:href="@{/ebanking}">
+                        <i class="fas fa-university"></i> <span>E-Banking</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-send-money}" class="active">
+                        <i class="fas fa-paper-plane"></i> <span>Send Money</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-utility}">
+                        <i class="fas fa-lightbulb"></i> <span>Bill Pay</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-statement}">
+                        <i class="fas fa-file-invoice-dollar"></i> <span>Statement</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-menu}">
+                        <i class="fas fa-cog"></i> <span>Settings</span>
+                    </a></li>
+                <li><a th:href="@{/logout}" style="color: var(--danger);">
+                        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                    </a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- INLINED MOBILE HEADER -->
+            <div class="mobile-header">
+                <h3>E-WALLET</h3>
+                <div class="mobile-actions">
+                    <button id="themeToggleMobile" class="toggle-btn"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+
+            <!-- INLINED TOP BAR -->
+            <div class="top-bar">
+                <button id="sidebarToggle" class="toggle-btn" title="Toggle Sidebar"><i
+                        class="fas fa-bars"></i></button>
+                <div style="flex:1"></div>
+                <button id="themeToggle" class="toggle-btn" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+            </div>
+
+            <!-- PAGE CONTENT -->
+            <section class="page-content">
+                <div class="page-header" style="border-radius: var(--radius);">
+                    <h2 style="margin: 0;">Transfer Funds</h2>
+                    <p style="opacity: 0.9;">Securely move money between accounts and wallets</p>
+                </div>
+
+                <div class="actions-grid">
+                    <div class="action-card" onclick="window.location.href='/send-money/to-bw'">
+                        <i class="fas fa-wallet" style="color: #27ae60;"></i>
+                        <span>Bank to Wallet</span>
+                        <small style="color: #666; display: block; margin-top: 5px;">Add money to App</small>
+                    </div>
+
+                    <div class="action-card" onclick="window.location.href='/send-money/to-bb'">
+                        <i class="fas fa-university" style="color: #2980b9;"></i>
+                        <span>Bank to Bank</span>
+                        <small style="color: #666; display: block; margin-top: 5px;">Inter-bank transfer</small>
+                    </div>
+
+                    <div class="action-card" onclick="window.location.href='/send-money/to-ww'">
+                        <i class="fas fa-exchange-alt" style="color: #8e44ad;"></i>
+                        <span>Wallet to Wallet</span>
+                        <small style="color: #666; display: block; margin-top: 5px;">Instant P2P Transfer</small>
+                    </div>
+
+                    <div class="action-card" onclick="window.location.href='/send-money/to-wb'">
+                        <i class="fas fa-money-check-alt" style="color: #c0392b;"></i>
+                        <span>Wallet to Bank</span>
+                        <small style="color: #666; display: block; margin-top: 5px;">Withdraw to Account</small>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/js/dashboard.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Statement - E-Wallet Banking</title>
+    <link rel="stylesheet" href="/css/modern-banking.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- INLINED SIDEBAR -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fas fa-university"></i> <span>E-WALLET</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a th:href="@{/home}">
+                        <i class="fas fa-home"></i> <span>Dashboard</span>
+                    </a></li>
+                <li><a th:href="@{/ebanking}">
+                        <i class="fas fa-university"></i> <span>E-Banking</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-send-money}">
+                        <i class="fas fa-paper-plane"></i> <span>Send Money</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-utility}">
+                        <i class="fas fa-lightbulb"></i> <span>Bill Pay</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-statement}" class="active">
+                        <i class="fas fa-file-invoice-dollar"></i> <span>Statement</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-history}">
+                        <i class="fas fa-history"></i> <span>Transaction History</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-menu}">
+                        <i class="fas fa-cog"></i> <span>Settings</span>
+                    </a></li>
+                <li><a th:href="@{/logout}" style="color: var(--danger);">
+                        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                    </a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- INLINED MOBILE HEADER -->
+            <div class="mobile-header">
+                <h3>E-WALLET</h3>
+                <div class="mobile-actions">
+                    <button id="themeToggleMobile" class="toggle-btn"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+
+            <!-- INLINED TOP BAR -->
+            <div class="top-bar">
+                <button id="sidebarToggle" class="toggle-btn" title="Toggle Sidebar"><i
+                        class="fas fa-bars"></i></button>
+                <div style="flex:1"></div>
+                <button id="themeToggle" class="toggle-btn" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+            </div>
+
+            <!-- PAGE CONTENT -->
+            <section class="page-content">
+
+                <!-- 1. LIMITS SECTION (Existing) -->
+                <div class="page-header">
+                    <h2>Transaction Overview</h2>
+                    <p>Check your transaction limits and history below</p>
+                </div>
+
+                <div class="section-card">
+                    <h3 style="margin-top:0;">Usage Limits</h3>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Transaction Channel</th>
+                                    <th>Time Period</th>
+                                    <th>No. of Trx (Used / Limit)</th>
+                                    <th>Amount (Used / Limit)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td rowspan="2"
+                                        style="font-weight: 600; border-right: 1px solid var(--border-color);">
+                                        <i class="fas fa-wallet"
+                                            style="color: var(--primary-color); margin-right: 5px;"></i>
+                                        Digital Wallet
+                                    </td>
+                                    <td>Daily</td>
+                                    <td><span th:text="${dailyWalletTr}">0</span> / 50</td>
+                                    <td><span th:text="'৳ ' + ${dailyWalletExpense}">0</span> / <span
+                                            class="badge info">৳
+                                            25,000</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Monthly</td>
+                                    <td><span th:text="${monthlyWalletTr}">0</span> / 500</td>
+                                    <td><span th:text="'৳ ' + ${monthlyWalletExpense}">0</span> / <span
+                                            class="badge info">৳
+                                            100,000</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td rowspan="2"
+                                        style="font-weight: 600; border-right: 1px solid var(--border-color);">
+                                        <i class="fas fa-university" style="color: #2c3e50; margin-right: 5px;"></i>
+                                        Linked
+                                        Bank
+                                    </td>
+                                    <td>Daily</td>
+                                    <td><span th:text="${dailyAccountTr}">0</span> / 10</td>
+                                    <td><span th:text="'৳ ' + ${dailyAccountExpense}">0</span> / <span
+                                            class="badge info">৳
+                                            50,000</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Monthly</td>
+                                    <td><span th:text="${monthlyAccountTr}">0</span> / 500</td>
+                                    <td><span th:text="'৳ ' + ${monthlyAccountExpense}">0</span> / <span
+                                            class="badge info">৳ 500,000</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+                <div class="section-card" style="margin-top: 1rem; background: #e8eaf6; color: #3f51b5;">
+                    <i class="fas fa-info-circle"></i> Note: Limits are subject to change based on bank policy.
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/js/dashboard.js"></script>
+    <style>
+        .text-danger {
+            color: #c0392b;
+        }
+
+        .text-success {
+            color: #27ae60;
+        }
+    </style>
+</body>
+
+</html>

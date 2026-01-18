@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: adminDashboard('Admin Menu','admin-home',~{::section})}">
+<section>
+    <div class="section-card" style="display:flex; justify-content: space-between; align-items:center; gap:1rem;">
+        <div>
+            <p class="muted-text" style="margin:0;">Quick links for admin tasks</p>
+            <h2 style="margin:0;">Admin Menu</h2>
+        </div>
+        <a href="/admin/home" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+
+    <div class="card-grid" style="--columns:3; gap:1rem;">
+        <div class="section-card" style="cursor:pointer;" onclick="window.location.href='/admin/user-list'">
+            <div class="badge">Users</div>
+            <h4 style="margin:0.5rem 0 0 0;">View Users</h4>
+            <p class="muted-text" style="margin:0.25rem 0 0 0;">Review and manage customers</p>
+        </div>
+        <div class="section-card" style="cursor:pointer;" onclick="window.location.href='/admin/add-user'">
+            <div class="badge">Create</div>
+            <h4 style="margin:0.5rem 0 0 0;">Add User</h4>
+            <p class="muted-text" style="margin:0.25rem 0 0 0;">Register a new account</p>
+        </div>
+        <div class="section-card" style="cursor:pointer;" onclick="window.location.href='/admin/transaction-list'">
+            <div class="badge">Monitor</div>
+            <h4 style="margin:0.5rem 0 0 0;">All Transactions</h4>
+            <p class="muted-text" style="margin:0.25rem 0 0 0;">Review transaction activity</p>
+        </div>
+        <div class="section-card" style="cursor:pointer;" onclick="window.location.href='/admin/cheque-status'">
+            <div class="badge">Cheque</div>
+            <h4 style="margin:0.5rem 0 0 0;">Cheque Requests</h4>
+            <p class="muted-text" style="margin:0.25rem 0 0 0;">Process cheque book applications</p>
+        </div>
+        <div class="section-card" style="cursor:pointer;" onclick="window.location.href='/admin/logout'">
+            <div class="badge badge-pill" style="background:var(--danger); color:#fff;">Logout</div>
+            <h4 style="margin:0.5rem 0 0 0;">Sign out</h4>
+            <p class="muted-text" style="margin:0.25rem 0 0 0;">End admin session</p>
+        </div>
+    </div>
+</section>
+</html>

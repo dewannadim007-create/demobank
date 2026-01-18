@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - Admin E-Wallet</title>
+    <link rel="stylesheet" href="/css/modern-banking.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="admin-theme">
+    <div class="dashboard-container">
+        <!-- ADMIN SIDEBAR -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fas fa-shield-alt"></i> <span>ADMIN</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a th:href="@{/admin/home}">
+                        <i class="fas fa-home"></i> <span>Dashboard</span>
+                    </a></li>
+                <li><a th:href="@{/admin/users}" class="active">
+                        <i class="fas fa-users"></i> <span>Manage Users</span>
+                    </a></li>
+                <li><a th:href="@{/admin/add-user}">
+                        <i class="fas fa-user-plus"></i> <span>Add User</span>
+                    </a></li>
+                <li><a th:href="@{/admin/transactions}">
+                        <i class="fas fa-exchange-alt"></i> <span>Transactions</span>
+                    </a></li>
+                <li><a th:href="@{/admin/cheque-status}">
+                        <i class="fas fa-money-check"></i> <span>Cheque Books</span>
+                    </a></li>
+                <li><a th:href="@{/admin/logout}" style="color: var(--danger);">
+                        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                    </a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div class="mobile-header">
+                <h3>MANAGE USERS</h3>
+                <div class="mobile-actions">
+                    <button id="themeToggleMobile" class="toggle-btn"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+
+            <div class="top-bar">
+                <button id="sidebarToggle" class="toggle-btn"><i class="fas fa-bars"></i></button>
+                <div style="flex:1"></div>
+                <button id="themeToggle" class="toggle-btn"><i class="fas fa-moon"></i></button>
+            </div>
+
+            <section class="page-content">
+                <!-- CONTENT FROM OLD userList.html -->
+                <style>
+                    .selected-row {
+                        background-color: #f1f5f9;
+                    }
+                </style>
+                <div class="section-card"
+                    style="display:flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                    <div>
+                        <p class="muted-text">View and manage registered users</p>
+                        <h2 style="margin:0;">User Management</h2>
+                    </div>
+                    <a href="/admin/add-user" class="btn btn-primary"><i class="fas fa-user-plus"></i> Add user</a>
+                </div>
+
+                <div class="section-card" style="margin-bottom: 1rem;">
+                    <form action="/admin/users/search" method="get" class="form-inline" style="gap: 0.5rem;">
+                        <input type="text" name="search" class="form-control"
+                            placeholder="Search by name, phone, or email" th:value="${searchTerm}">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
+                        <a href="/admin/users" class="btn btn-secondary">Clear</a>
+                    </form>
+                </div>
+
+                <div class="section-card" style="padding:0;">
+                    <div style="overflow-x: auto;">
+                        <table class="table user-table" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>Account No</th>
+                                    <th>NID</th>
+                                    <th>DOB</th>
+                                    <th>E-Mail</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="user : ${users}" onclick="selectUser(this)" class="table-row-link">
+                                    <td th:text="${user.name}">Name</td>
+                                    <td class="mobile-cell" th:text="${user.mobile}">Mobile</td>
+                                    <td th:text="${user.account}">Account</td>
+                                    <td th:text="${user.nid}">NID</td>
+                                    <td th:text="${user.DOB}">DOB</td>
+                                    <td th:text="${user.email}">Email</td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(users)}">
+                                    <td colspan="6" style="text-align:center; padding: 1.5rem;" class="muted-text">No
+                                        users found for this search.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- SELECTED USER DETAIL VIEW -->
+                <div class="section-card" th:if="${selectedUser != null}"
+                    style="border-left: 5px solid var(--primary-color);">
+                    <div
+                        style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 1.5rem;">
+                        <div style="display:flex; gap:1rem; align-items:center;">
+                            <div
+                                style="width:60px; height:60px; background: #e3f2fd; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--primary-color); font-size:1.5rem;">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>
+                                <h2 style="margin:0;" th:text="${selectedUser.name}">User Name</h2>
+                                <p class="muted-text" style="margin:0;" th:text="${selectedUser.mobile}">01700000000</p>
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:0.5rem;">
+                            <a th:href="@{/admin/user/edit(mobile=${selectedUser.mobile})}" class="btn btn-primary"
+                                style="background:#5e35b1;">
+                                <i class="fas fa-edit"></i> Edit Info
+                            </a>
+                            <form action="/admin/api/users/delete" method="post"
+                                onsubmit="return confirm('Delete this user? This action cannot be undone.');">
+                                <input type="hidden" name="mobile" th:value="${selectedUser.mobile}">
+                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>
+                                    Delete</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div
+                        style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:1rem; margin-bottom: 2rem;">
+                        <!-- Balances -->
+                        <div
+                            style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color:white; padding:1.5rem; border-radius:12px;">
+                            <p style="margin:0 0 0.5rem 0; font-weight:500; opacity:0.9;">Main Account Balance</p>
+                            <h2 style="margin:0;" th:text="'৳ ' + ${accountBalance}">৳ 0.00</h2>
+                            <small th:text="'Account: ' + ${selectedUser.account}"></small>
+                        </div>
+                        <div
+                            style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color:#1b5e20; padding:1.5rem; border-radius:12px;">
+                            <p style="margin:0 0 0.5rem 0; font-weight:600; opacity:0.8;">E-Wallet Balance</p>
+                            <h2 style="margin:0;" th:text="'৳ ' + ${walletBalance}">৳ 0.00</h2>
+                            <small>Mobile App Wallet</small>
+                        </div>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:2rem;">
+                        <!-- Personal Info -->
+                        <div>
+                            <h4 style="border-bottom: 2px solid #eee; padding-bottom:0.5rem; margin-top:0;">Personal
+                                Details</h4>
+                            <div style="display:grid; grid-template-columns: 140px 1fr; gap:0.5rem; font-size:0.95rem;">
+                                <span class="muted-text">Email:</span> <span style="font-weight:500;"
+                                    th:text="${selectedUser.email}">email@example.com</span>
+                                <span class="muted-text">NID:</span> <span style="font-weight:500;"
+                                    th:text="${selectedUser.nid}">123456789</span>
+                                <span class="muted-text">Date of Birth:</span> <span style="font-weight:500;"
+                                    th:text="${selectedUser.DOB}">01-01-1990</span>
+                                <span class="muted-text">Address:</span> <span style="font-weight:500;"
+                                    th:text="${selectedUser.address != null ? selectedUser.address : 'N/A'}">Address</span>
+                            </div>
+                        </div>
+
+                        <!-- Recent Transactions -->
+                        <div>
+                            <h4 style="border-bottom: 2px solid #eee; padding-bottom:0.5rem; margin-top:0;">Recent
+                                Transactions</h4>
+                            <div th:if="${recentTransactions == null or recentTransactions.empty}" class="muted-text">No
+                                recent transactions.</div>
+                            <table th:if="${recentTransactions != null and !recentTransactions.empty}" class="table"
+                                style="font-size:0.9rem;">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="trx : ${recentTransactions}">
+                                        <td
+                                            th:text="${trx.transactionDate != null ? #temporals.format(trx.transactionDate, 'dd-MM-yyyy') : 'N/A'}">
+                                            Date</td>
+                                        <td th:text="${trx.type}">Type</td>
+                                        <td th:text="'৳ ' + ${trx.amount}" style="font-weight:600;">Amount</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="muted-text" style="text-align:center; margin-top: 2rem;" th:unless="${selectedUser != null}">
+                    <i class="fas fa-touch-app"></i> Click on any user in the table above to view full details.
+                </p>
+
+                <script>
+                    function selectUser(row) {
+                        document.querySelectorAll('.user-table tbody tr').forEach(r => r.classList.remove('selected-row'));
+                        row.classList.add('selected-row');
+                        const mobile = row.querySelector('.mobile-cell').textContent.trim();
+                        window.location.href = '/admin/users/balance?mobile=' + mobile;
+                    }
+                </script>
+            </section>
+        </main>
+    </div>
+    <script src="/js/dashboard.js"></script>
+</body>
+
+</html>
