@@ -6,7 +6,11 @@ services:
     plan: free  # Change to paid plans like 'starter', 'standard', or 'pro' as needed
     branch: main  # Change to your default branch if different
     envVars:
-      - key: MONGODB_URI
+      - key: MONGO_URI
+        sync: false  # Set this manually in Render dashboard for security
+      - key: SPRING_SECURITY_USER_NAME
+        sync: false  # Set this manually in Render dashboard for security
+      - key: SPRING_SECURITY_USER_PASSWORD
         sync: false  # Set this manually in Render dashboard for security
       - key: JAVA_OPTS
         value: "-Xmx512m -Xms256m"
