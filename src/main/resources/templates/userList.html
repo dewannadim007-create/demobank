@@ -74,19 +74,14 @@
 
             <section class="page-content">
                 <!-- CONTENT FROM OLD userList.html -->
-                <style>
-                    .selected-row {
-                        background-color: #f1f5f9;
-                    }
-                </style>
-                <div class="section-card"
-                    style="display:flex; justify-content: flex-end; align-items: center; gap: 1rem; padding: 1rem;">
+
+                <div class="section-card admin-header-actions">
                     <a href="/admin/add-user" class="btn btn-primary"><i class="fas fa-user-plus"></i> Add User</a>
                 </div>
 
-                <div class="section-card" style="margin-bottom: 1rem;">
-                    <form action="/admin/users/search" method="get" class="form-inline" style="gap: 0.5rem;">
-                        <input type="text" name="search" class="form-control"
+                <div class="section-card mb-1">
+                    <form action="/admin/users/search" method="get" class="admin-filter-bar">
+                        <input type="text" name="search" class="form-control admin-search-input"
                             placeholder="Search by name, phone, or email" th:value="${searchTerm}">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
                         <a href="/admin/users" class="btn btn-secondary">Clear</a>
@@ -94,8 +89,8 @@
                 </div>
 
                 <div class="section-card" style="padding:0;">
-                    <div style="overflow-x: auto;">
-                        <table class="table user-table" style="width: 100%; border-collapse: collapse;">
+                    <div class="table-responsive">
+                        <table class="table user-table">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -107,7 +102,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="user : ${users}" onclick="selectUser(this)" class="table-row-link">
+                                <tr th:each="user : ${users}" onclick="window.selectUser(this)" class="table-row-link">
                                     <td th:text="${user.name}">Name</td>
                                     <td class="mobile-cell" th:text="${user.mobile}">Mobile</td>
                                     <td th:text="${user.account}">Account</td>
@@ -125,21 +120,18 @@
                 </div>
 
                 <!-- SELECTED USER DETAIL VIEW -->
-                <div class="section-card" th:if="${selectedUser != null}"
-                    style="border-left: 5px solid var(--primary-color);">
-                    <div
-                        style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 1.5rem;">
-                        <div style="display:flex; gap:1rem; align-items:center;">
-                            <div
-                                style="width:60px; height:60px; background: #e3f2fd; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--primary-color); font-size:1.5rem;">
+                <div class="section-card user-detail-card" th:if="${selectedUser != null}">
+                    <div class="user-detail-header">
+                        <div class="user-detail-profile">
+                            <div class="user-detail-avatar">
                                 <i class="fas fa-user"></i>
                             </div>
                             <div>
-                                <h2 style="margin:0;" th:text="${selectedUser.name}">User Name</h2>
-                                <p class="muted-text" style="margin:0;" th:text="${selectedUser.mobile}">01700000000</p>
+                                <h2 class="m-0" th:text="${selectedUser.name}">User Name</h2>
+                                <p class="muted-text m-0" th:text="${selectedUser.mobile}">01700000000</p>
                             </div>
                         </div>
-                        <div style="display:flex; gap:0.5rem;">
+                        <div class="d-flex gap-1">
                             <a th:href="@{/admin/user/edit(mobile=${selectedUser.mobile})}" class="btn btn-primary"
                                 style="background:#5e35b1;">
                                 <i class="fas fa-edit"></i> Edit Info
@@ -153,29 +145,26 @@
                         </div>
                     </div>
 
-                    <div
-                        style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:1rem; margin-bottom: 2rem;">
+                    <div class="user-detail-balances">
                         <!-- Balances -->
-                        <div
-                            style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color:white; padding:1.5rem; border-radius:12px;">
-                            <p style="margin:0 0 0.5rem 0; font-weight:500; opacity:0.9;">Main Account Balance</p>
-                            <h2 style="margin:0;" th:text="'৳ ' + ${accountBalance}">৳ 0.00</h2>
+                        <div class="balance-box-main">
+                            <p class="m-0 mb-1" style="font-weight:500; opacity:0.9;">Main Account Balance</p>
+                            <h2 class="m-0" th:text="'৳ ' + ${accountBalance}">৳ 0.00</h2>
                             <small th:text="'Account: ' + ${selectedUser.account}"></small>
                         </div>
-                        <div
-                            style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color:#1b5e20; padding:1.5rem; border-radius:12px;">
-                            <p style="margin:0 0 0.5rem 0; font-weight:600; opacity:0.8;">E-Wallet Balance</p>
-                            <h2 style="margin:0;" th:text="'৳ ' + ${walletBalance}">৳ 0.00</h2>
+                        <div class="balance-box-wallet">
+                            <p class="m-0 mb-1" style="font-weight:600; opacity:0.8;">E-Wallet Balance</p>
+                            <h2 class="m-0" th:text="'৳ ' + ${walletBalance}">৳ 0.00</h2>
                             <small>Mobile App Wallet</small>
                         </div>
                     </div>
 
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:2rem;">
+                    <div class="detail-grid-2">
                         <!-- Personal Info -->
                         <div>
-                            <h4 style="border-bottom: 2px solid #eee; padding-bottom:0.5rem; margin-top:0;">Personal
+                            <h4 class="detail-section-title">Personal
                                 Details</h4>
-                            <div style="display:grid; grid-template-columns: 140px 1fr; gap:0.5rem; font-size:0.95rem;">
+                            <div class="info-grid">
                                 <span class="muted-text">Email:</span> <span style="font-weight:500;"
                                     th:text="${selectedUser.email}">email@example.com</span>
                                 <span class="muted-text">NID:</span> <span style="font-weight:500;"
@@ -189,7 +178,7 @@
 
                         <!-- Recent Transactions -->
                         <div>
-                            <h4 style="border-bottom: 2px solid #eee; padding-bottom:0.5rem; margin-top:0;">Recent
+                            <h4 class="detail-section-title">Recent
                                 Transactions</h4>
                             <div th:if="${recentTransactions == null or recentTransactions.empty}" class="muted-text">No
                                 recent transactions.</div>
@@ -220,18 +209,8 @@
                     <i class="fas fa-touch-app"></i> Click on any user in the table above to view full details.
                 </p>
 
-                <script>
-                    function selectUser(row) {
-                        document.querySelectorAll('.user-table tbody tr').forEach(r => r.classList.remove('selected-row'));
-                        row.classList.add('selected-row');
-                        const mobile = row.querySelector('.mobile-cell').textContent.trim();
-                        window.location.href = '/admin/users/balance?mobile=' + mobile;
-                    }
-                </script>
-            </section>
-        </main>
-    </div>
-    <script src="/js/dashboard.js"></script>
+                <script src="/js/dashboard.js"></script>
+                <script src="/js/admin-dashboard.js"></script>
 </body>
 
 </html>

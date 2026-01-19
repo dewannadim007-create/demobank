@@ -88,11 +88,10 @@
                         <h3 style="margin-top: 10px;">Load Wallet</h3>
                     </div>
 
-                    <div class="section-card"
-                        style="text-align:center; margin-bottom:1rem; background:#e8f5e9; border-color:#c8e6c9;">
-                        <span style="display: block; font-size: 0.9rem; color: #2e7d32;">Linked Bank Balance</span>
-                        <span style="font-weight: bold; color: #1b5e20; font-size: 1.2rem;"
-                            th:text="${balance != null ? '৳ ' + balance : '---'}">৳ 0.00</span>
+                    <div class="section-card linked-balance-card">
+                        <span class="linked-balance-label">Linked Bank Balance</span>
+                        <span class="linked-balance-amount" th:text="${balance != null ? '৳ ' + balance : '---'}">৳
+                            0.00</span>
                     </div>
 
                     <form action="/api/add-money" method="post">
@@ -107,22 +106,20 @@
                             <input type="password" name="password" class="form-control" required>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <button type="submit" class="btn btn-primary w-100">
                             Add Money <i class="fas fa-arrow-right"></i>
                         </button>
                     </form>
 
-                    <div th:if="${successMessage}" class="section-card"
-                        style="margin-top: 15px; color: #1b5e20; background-color: #d4edda; text-align: center;">
+                    <div th:if="${successMessage}" class="section-card alert-success">
                         <i class="fas fa-check-circle"></i> <span th:text="${successMessage}">Success</span>
                     </div>
-                    <div th:if="${errorMessage}" class="section-card"
-                        style="margin-top: 15px; color: #721c24; background-color: #f8d7da; text-align: center;">
+                    <div th:if="${errorMessage}" class="section-card alert-error">
                         <i class="fas fa-exclamation-circle"></i> <span th:text="${errorMessage}">Error</span>
                     </div>
 
                     <div class="text-center mt-2">
-                        <a href="/ebanking" style="color: var(--text-secondary); font-size: 0.9rem;">Back to
+                        <a href="/ebanking" class="muted-text" style="font-size: 0.9rem;">Back to
                             E-Banking</a>
                     </div>
                 </div>

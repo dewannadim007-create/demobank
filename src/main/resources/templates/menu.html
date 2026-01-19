@@ -85,38 +85,36 @@
             <section class="page-content">
 
 
-                <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
-                    <div class="section-card" onclick="window.location.href='/menu/to-user-profile'"
-                        style="cursor:pointer; display:flex; gap:1rem; align-items:center;">
-                        <div class="settings-icon" style="background:#e0f2f1;">
-                            <i class="fas fa-user-circle" style="color: var(--primary-color);"></i>
+                <div class="card-grid settings-grid">
+                    <div class="section-card settings-card" onclick="window.location.href='/menu/to-user-profile'">
+                        <div class="settings-icon settings-icon-primary">
+                            <i class="fas fa-user-circle"></i>
                         </div>
                         <div>
-                            <h3 style="margin:0; font-size: 1.1rem;">My Profile</h3>
-                            <p class="muted-text" style="margin:5px 0 0 0; font-size: 0.9rem;">View account details</p>
+                            <h3 class="m-0" style="font-size: 1.1rem;">My Profile</h3>
+                            <p class="muted-text m-0 mt-1" style="font-size: 0.9rem;">View account details</p>
                         </div>
                     </div>
 
-                    <div class="section-card" onclick="window.location.href='/menu/to-password'"
-                        style="cursor:pointer; display:flex; gap:1rem; align-items:center;">
-                        <div class="settings-icon" style="background:#e0f2f1;">
-                            <i class="fas fa-key" style="color: var(--primary-color);"></i>
+                    <div class="section-card settings-card" onclick="window.location.href='/menu/to-password'">
+                        <div class="settings-icon settings-icon-primary">
+                            <i class="fas fa-key"></i>
                         </div>
                         <div>
-                            <h3 style="margin:0; font-size: 1.1rem;">Change PIN</h3>
-                            <p class="muted-text" style="margin:5px 0 0 0; font-size: 0.9rem;">Update account security
+                            <h3 class="m-0" style="font-size: 1.1rem;">Change PIN</h3>
+                            <p class="muted-text m-0 mt-1" style="font-size: 0.9rem;">Update account security
                             </p>
                         </div>
                     </div>
 
-                    <div class="section-card" onclick="window.location.href='/menu/to-login'"
-                        style="cursor:pointer; display:flex; gap:1rem; align-items:center; background:#ffebee; border-color:#ef5350;">
-                        <div class="settings-icon" style="background:#ffcdd2; color:#b71c1c;">
+                    <div class="section-card settings-card settings-card-logout"
+                        onclick="window.location.href='/menu/to-login'">
+                        <div class="settings-icon settings-icon-logout">
                             <i class="fas fa-sign-out-alt"></i>
                         </div>
                         <div>
-                            <h3 style="margin:0; font-size: 1.1rem; color: #c62828;">Logout</h3>
-                            <p style="margin:5px 0 0 0; font-size: 0.9rem; opacity: 0.8;">Sign out of your session</p>
+                            <h3 class="m-0 settings-title-logout" style="font-size: 1.1rem;">Logout</h3>
+                            <p class="m-0 mt-1" style="font-size: 0.9rem; opacity: 0.8;">Sign out of your session</p>
                         </div>
                     </div>
                 </div>

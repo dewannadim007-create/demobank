@@ -72,19 +72,15 @@
             </div>
 
             <section class="page-content">
-                <style>
-                    .selected-row {
-                        background: #f1f5f9;
-                    }
-                </style>
 
 
-                <div class="section-card" style="margin-bottom:1rem;">
-                    <form action="/admin/cheque-status" method="get" style="display:flex; gap:0.5rem; flex-wrap: wrap;">
-                        <input type="text" name="search" class="form-control" placeholder="Search by name or account..."
-                            th:value="${searchTerm}" style="flex: 2; min-width: 200px;">
 
-                        <select name="status" class="form-control" style="flex: 1; min-width: 150px;">
+                <div class="section-card mb-1">
+                    <form action="/admin/cheque-status" method="get" class="admin-filter-bar">
+                        <input type="text" name="search" class="form-control admin-search-input"
+                            placeholder="Search by name or account..." th:value="${searchTerm}">
+
+                        <select name="status" class="form-control admin-select-input">
                             <option value="All">All Status</option>
                             <option value="Pending" th:selected="${selectedStatus == 'Pending'}">Pending</option>
                             <option value="Success" th:selected="${selectedStatus == 'Success'}">Approved</option>
@@ -98,7 +94,7 @@
                 </div>
 
                 <div class="section-card" style="padding:0;">
-                    <div style="overflow-x:auto;">
+                    <div class="table-responsive">
                         <table class="data-table cheque-table">
                             <thead>
                                 <tr>
@@ -111,7 +107,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="cheque : ${cheques}" onclick="selectRow(this)" class="table-row-link">
+                                <tr th:each="cheque : ${cheques}" onclick="window.selectRow(this)"
+                                    class="table-row-link">
                                     <td style="font-family: monospace;" th:text="${cheque.id}">Account</td>
                                     <td th:text="${cheque.name}">Name</td>
                                     <td th:text="${cheque.nid}">Page</td>
@@ -119,7 +116,7 @@
                                     <td th:text="${cheque.address}">Date</td>
                                     <td>
                                         <span class="badge"
-                                            th:classappend="${cheque.accountType == 'Success'} ? 'success' : (${cheque.accountType == 'Declined'} ? 'warn' : 'info')"
+                                            th:classappend="${cheque.accountType == 'Success'} ? 'badge-success' : (${cheque.accountType == 'Declined'} ? 'badge-warn' : 'badge-info')"
                                             th:text="${cheque.accountType}">Pending</span>
                                     </td>
                                 </tr>
@@ -135,12 +132,11 @@
                     </div>
                 </div>
 
-                <div id="actionPanel" class="section-card"
-                    style="margin-top: 1rem; display:none; align-items:center; justify-content: space-between; gap:1rem; background:#f8fdff;">
-                    <div class="muted-text" style="font-weight:600;">Action for Account: <span id="displayAccount"
+                <div id="actionPanel" class="section-card admin-action-panel">
+                    <div class="muted-text font-weight-600">Action for Account: <span id="displayAccount"
                             style="color:var(--primary-color);"></span></div>
 
-                    <form action="/admin/api/cheque-status/update" method="post" style="display:flex; gap:10px;">
+                    <form action="/admin/api/cheque-status/update" method="post" class="d-flex gap-1">
                         <input type="hidden" name="accountId" id="selectedAccount">
 
                         <button type="submit" name="action" value="approve" class="btn btn-primary"
@@ -160,32 +156,17 @@
                     </form>
                 </div>
 
-                <p class="muted-text" id="instructionText" style="text-align:center; margin-top:1rem;">
+                <p class="muted-text text-center mt-1" id="instructionText">
                     <i class="fas fa-info-circle"></i> Click a row to manage the request.
                 </p>
 
-                <div class="section-card" th:if="${successMessage}" style="margin-top:1rem; background:#e8f5e9;">
-                    <span class="badge" style="background:#2e7d32; color:#fff;">Success</span>
-                    <p style="margin:0.25rem 0 0 0;" th:text="${successMessage}">Updated</p>
+                <div class="section-card mt-1 bg-success-light" th:if="${successMessage}">
+                    <span class="badge-success-solid">Success</span>
+                    <p class="m-0 mt-1" th:text="${successMessage}">Updated</p>
                 </div>
 
-                <script>
-                    function selectRow(row) {
-                        document.querySelectorAll('.cheque-table tbody tr').forEach(r => r.classList.remove('selected-row'));
-                        row.classList.add('selected-row');
-
-                        const account = row.cells[0].textContent.trim();
-                        document.getElementById('selectedAccount').value = account;
-                        document.getElementById('displayAccount').textContent = account;
-
-                        document.getElementById('actionPanel').style.display = 'flex';
-                        document.getElementById('instructionText').style.display = 'none';
-                    }
-                </script>
-            </section>
-        </main>
-    </div>
-    <script src="/js/dashboard.js"></script>
+                <script src="/js/dashboard.js"></script>
+                <script src="/js/admin-dashboard.js"></script>
 </body>
 
 </html>
