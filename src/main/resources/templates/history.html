@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History - E-Wallet Banking</title>
+    <link rel="stylesheet" href="/css/modern-banking.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- INLINED SIDEBAR -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fas fa-university"></i> <span>E-WALLET</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a th:href="@{/home}">
+                        <i class="fas fa-home"></i> <span>Dashboard</span>
+                    </a></li>
+                <li><a th:href="@{/ebanking}">
+                        <i class="fas fa-university"></i> <span>E-Banking</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-send-money}">
+                        <i class="fas fa-paper-plane"></i> <span>Send Money</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-utility}">
+                        <i class="fas fa-lightbulb"></i> <span>Bill Pay</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-statement}">
+                        <i class="fas fa-file-invoice-dollar"></i> <span>Statement</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-history}" class="active">
+                        <i class="fas fa-history"></i> <span>Transaction History</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-menu}">
+                        <i class="fas fa-cog"></i> <span>Settings</span>
+                    </a></li>
+                <li><a th:href="@{/logout}" style="color: var(--danger);">
+                        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                    </a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- INLINED MOBILE HEADER -->
+            <div class="mobile-header">
+                <h3>E-WALLET</h3>
+                <div class="mobile-actions">
+                    <button id="themeToggleMobile" class="toggle-btn"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+
+            <!-- INLINED TOP BAR -->
+            <!-- INLINED TOP BAR -->
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <button id="sidebarToggle" class="toggle-btn" title="Toggle Sidebar"><i
+                            class="fas fa-bars"></i></button>
+                    <h2 class="page-title">Transaction History</h2>
+                </div>
+
+                <div class="top-bar-center">
+                    <!-- Local search is already present in the content below, so keeping this clear to avoid redundancy -->
+                </div>
+
+                <div class="user-actions">
+                    <button class="icon-btn" onclick="window.location.href='/notifications'"><i
+                            class="fas fa-bell"></i></button>
+                    <button id="themeToggle" class="icon-btn" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+                    <div class="user-profile" onclick="window.location.href='/user-profile'">
+                        <div class="avatar"
+                            style="background-color: var(--secondary-color); color: var(--primary-dark);">U</div>
+                        <div class="user-info">
+                            <span class="user-name" th:text="${name}">User</span>
+                            <span class="user-role">Customer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE CONTENT -->
+            <section class="page-content">
+
+
+
+                <!-- HISTORY & SEARCH SECTION -->
+                <div class="section-card">
+
+                    <!-- Search Form -->
+                    <div
+                        style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 1rem;">
+                        <h3 style="margin:0;">Transactions</h3>
+
+                        <form action="/history" method="get" class="form-inline"
+                            style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+
+                            <!-- Search Input -->
+                            <div class="input-group" style="margin: 0; min-width: 200px;">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                <input type="text" name="search" class="form-control" placeholder="Search..."
+                                    th:value="${searchTerm}" style="margin:0; border:none;">
+                            </div>
+
+                            <!-- Type Filter -->
+                            <select name="type" class="form-control" style="width: auto; margin:0;"
+                                onchange="this.form.submit()">
+                                <option value="All" th:selected="${selectedType == 'All'}">All Types</option>
+                                <option value="recharge" th:selected="${selectedType == 'recharge'}">Recharge</option>
+                                <option value="gas bill" th:selected="${selectedType == 'gas bill'}">Gas Bill</option>
+                                <option value="electricity bill" th:selected="${selectedType == 'electricity bill'}">
+                                    Electricity Bill</option>
+                                <option value="add to wallet" th:selected="${selectedType == 'add to wallet'}">Add Money
+                                </option>
+                                <option value="wallet to wallet" th:selected="${selectedType == 'wallet to wallet'}">
+                                    Wallet to Wallet</option>
+                                <option value="bank to wallet" th:selected="${selectedType == 'bank to wallet'}">Bank to
+                                    Wallet</option>
+                                <option value="wallet to bank" th:selected="${selectedType == 'wallet to bank'}">Wallet
+                                    to Bank</option>
+                                <option value="bank to bank" th:selected="${selectedType == 'bank to bank'}">Bank to
+                                    Bank</option>
+                            </select>
+
+                            <!-- Time Filter -->
+                            <select name="days" class="form-control" style="width: auto; margin:0;"
+                                onchange="this.form.submit()">
+                                <option value="All" th:selected="${selectedDays == 'All'}">All Time</option>
+                                <option value="7" th:selected="${selectedDays == '7'}">Last 7 Days</option>
+                                <option value="30" th:selected="${selectedDays == '30'}">Last 30 Days</option>
+                                <option value="90" th:selected="${selectedDays == '90'}">Last 3 Months</option>
+                            </select>
+
+                            <noscript><button type="submit" class="btn btn-primary">Go</button></noscript>
+                        </form>
+                    </div>
+
+                    <!-- History Table -->
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Ref ID</th>
+                                    <th>Description</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="trx : ${transactions}">
+                                    <td style="white-space: nowrap;" th:text="${trx.date}">2026-01-01</td>
+
+                                    <td style="font-family: monospace; font-size: 0.9em; color: var(--text-secondary);"
+                                        th:text="${trx.ref}">TXN-12345</td>
+
+                                    <td>
+                                        <div style="display: flex; flex-direction: column;">
+                                            <span th:if="${trx.sender == user.account or trx.sender == user.mobile}">
+                                                To: <span style="font-weight: 500;"
+                                                    th:text="${trx.receiver}">Receiver</span>
+                                            </span>
+                                            <span
+                                                th:if="${trx.receiver == user.account or trx.receiver == user.mobile}">
+                                                From: <span style="font-weight: 500;"
+                                                    th:text="${trx.sender}">Sender</span>
+                                            </span>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <span class="badge"
+                                            th:classappend="${trx.sender == user.account or trx.sender == user.mobile} ? 'warn' : 'info'"
+                                            th:text="${trx.type}">Type</span>
+                                    </td>
+
+                                    <td style="font-weight: 600;"
+                                        th:classappend="${trx.sender == user.account or trx.sender == user.mobile} ? 'text-danger' : 'text-success'">
+                                        <span
+                                            th:text="${trx.sender == user.account or trx.sender == user.mobile} ? '-' : '+'"></span>
+                                        <span th:text="'৳ ' + ${trx.amount}">500.00</span>
+                                    </td>
+
+                                    <td>
+                                        <span class="badge success">Success</span>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(transactions)}">
+                                    <td colspan="6" style="text-align: center; padding: 3rem;" class="muted-text">
+                                        <i class="fas fa-history"
+                                            style="font-size: 2rem; margin-bottom: 10px; opacity: 0.5;"></i><br>
+                                        No transactions found matching your filters.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+    <script src="/js/dashboard.js"></script>
+    <style>
+        .text-danger {
+            color: #c0392b;
+        }
+
+        .text-success {
+            color: #27ae60;
+        }
+    </style>
+</body>
+
+</html>

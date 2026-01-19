@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - E-Wallet Biz</title>
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="/css/modern-banking.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom Styles for Landing Page specific overrides */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .landing-hero {
+            background: linear-gradient(135deg, #004d40 0%, #00251a 100%);
+            color: white;
+            padding: 4rem 1.5rem 6rem;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 3rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #ffd700;
+            color: #004d40;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .features-section {
+            max-width: 1100px;
+            margin: -4rem auto 4rem;
+            position: relative;
+            z-index: 10;
+            padding: 0 1.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s;
+            border-bottom: 4px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-bottom-color: #004d40;
+        }
+
+        .feature-icon-lg {
+            font-size: 2.5rem;
+            color: #004d40;
+            margin-bottom: 1.5rem;
+        }
+
+        .faq-section {
+            background: white;
+            padding: 5rem 1.5rem;
+            text-align: center;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .faq-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #004d40;
+        }
+
+        .faq-item h4 {
+            margin: 0 0 0.5rem;
+            color: #004d40;
+        }
+
+        .faq-item p {
+            margin: 0;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            background: #00251a;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                margin-top: 1rem;
+            }
+
+            .nav-links a {
+                margin: 0 0.75rem;
+            }
+
+            .landing-hero {
+                clip-path: none;
+                padding-bottom: 3rem;
+            }
+
+            .features-section {
+                margin-top: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Hero Section -->
+    <header class="landing-hero">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-wallet"></i> E-WALLET BIZ
+            </div>
+            <nav class="nav-links">
+                <a href="/faq"><i class="fas fa-question-circle"></i> FAQ</a>
+                <a href="/branch"><i class="fas fa-map-marker-alt"></i> Locations</a>
+                <a href="/login" class="btn"
+                    style="background: rgba(255,255,255,0.2); border-radius: 20px; padding: 0.5rem 1.5rem; margin-left: 1rem;">Login</a>
+            </nav>
+        </div>
+
+        <div class="hero-content">
+            <h1>Simple. Secure. Reliable.</h1>
+            <p>A straightforward way to manage your money. Transfers, bill payments, and statements—made easy.</p>
+            <a href="/login" class="cta-button">Customer Login <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon-lg"><i class="fas fa-bolt"></i></div>
+                <h3>Quick Transfers</h3>
+                <p class="muted-text">Send funds to anyone on the platform. Fast and efficient.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-lg"><i class="fas fa-lock"></i></div>
+                <h3>Secure</h3>
+                <p class="muted-text">Built with modern security standards to keep your account safe.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-lg"><i class="fas fa-check-circle"></i></div>
+                <h3>Easy to Use</h3>
+                <p class="muted-text">Clean interface designed for clarity and ease of use.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <div style="margin-bottom: 1rem;">
+            <i class="fas fa-wallet" style="font-size: 2rem; color: #ffd700;"></i>
+        </div>
+        <p>&copy; 2026 E-Wallet Biz Corp. All rights reserved.</p>
+        <div style="margin-top: 1rem;">
+            <a href="/branch" style="color: #ccc; margin: 0 10px;">Find Branch</a> |
+            <a href="/faq" style="color: #ccc; margin: 0 10px;">Help Center</a> |
+            <a href="/login" style="color: #ccc; margin: 0 10px;">Login</a>
+        </div>
+    </footer>
+
+</body>
+
+</html>

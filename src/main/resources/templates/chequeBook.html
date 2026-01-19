@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheque Book Application - E-Wallet Banking</title>
+    <link rel="stylesheet" href="/css/modern-banking.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- INLINED SIDEBAR -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fas fa-university"></i> <span>E-WALLET</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a th:href="@{/home}">
+                        <i class="fas fa-home"></i> <span>Dashboard</span>
+                    </a></li>
+                <li><a th:href="@{/ebanking}">
+                        <i class="fas fa-university"></i> <span>E-Banking</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-send-money}">
+                        <i class="fas fa-paper-plane"></i> <span>Send Money</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-utility}">
+                        <i class="fas fa-lightbulb"></i> <span>Bill Pay</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-statement}">
+                        <i class="fas fa-file-invoice-dollar"></i> <span>Statement</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-menu}">
+                        <i class="fas fa-cog"></i> <span>Settings</span>
+                    </a></li>
+                <li><a th:href="@{/chequebook}" class="active">
+                        <i class="fas fa-money-check"></i> <span>Cheque Book</span>
+                    </a></li>
+                <li><a th:href="@{/logout}" style="color: var(--danger);">
+                        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                    </a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- INLINED MOBILE HEADER -->
+            <div class="mobile-header">
+                <h3>CHEQUE BOOK</h3>
+                <div class="mobile-actions">
+                    <button id="themeToggleMobile" class="toggle-btn"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+
+            <!-- INLINED TOP BAR -->
+            <!-- INLINED TOP BAR -->
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <button id="sidebarToggle" class="toggle-btn" title="Toggle Sidebar"><i
+                            class="fas fa-bars"></i></button>
+                    <h2 class="page-title">Cheque Book</h2>
+                </div>
+
+                <div class="top-bar-center">
+                </div>
+
+                <div class="user-actions">
+                    <button class="icon-btn" onclick="window.location.href='/notifications'"><i
+                            class="fas fa-bell"></i></button>
+                    <button id="themeToggle" class="icon-btn" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+                    <div class="user-profile" onclick="window.location.href='/user-profile'">
+                        <div class="avatar"
+                            style="background-color: var(--secondary-color); color: var(--primary-dark);">U</div>
+                        <div class="user-info" style="display: none;">
+                            <span class="user-name" th:text="${name}">User</span>
+                            <span class="user-role">Customer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="page-content">
+                <div class="section-card" style="max-width: 760px; margin: 0 auto;">
+
+
+                    <div class="section-card" style="margin:0 0 1rem 0;">
+                        <div style="display:flex; justify-content: space-between;"> <span class="muted-text">Account
+                                Name</span> <span style="font-weight:600;" th:text="${name}">User Name</span></div>
+                        <div style="display:flex; justify-content: space-between;"> <span class="muted-text">Bank
+                                Account</span> <span style="font-weight:600;" th:text="${account}">123456789</span>
+                        </div>
+                        <div style="display:flex; justify-content: space-between;"> <span
+                                class="muted-text">Mobile</span> <span style="font-weight:600;"
+                                th:text="${mobile}">01700000000</span></div>
+                    </div>
+
+                    <form action="/api/chequebook/apply" method="post" class="card-grid" style="--columns:2; gap:1rem;">
+                        <div class="form-group">
+                            <label>Pages per Book</label>
+                            <select name="page" class="form-control" required>
+                                <option value="">Select Pages</option>
+                                <option th:each="option : ${pageOptions}" th:value="${option}"
+                                    th:text="${option + ' Pages'}">10 Pages</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <select name="checkNumber" class="form-control" required>
+                                <option value="">Select Quantity</option>
+                                <option th:each="option : ${checkNumberOptions}" th:value="${option}"
+                                    th:text="${option + ' Book(s)'}">1 Book(s)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="grid-column: 1 / span 2;">
+                            <label>Confirm Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+
+                        <div style="grid-column: 1 / span 2;">
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                Submit Request <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="section-card" th:if="${successMessage}" style="margin-top:1rem; background:#e8f5e9;">
+                        <span class="badge" style="background:#2e7d32; color:#fff;">Success</span>
+                        <p style="margin:0.25rem 0 0 0;" th:text="${successMessage}">Request submitted</p>
+                    </div>
+                    <div class="section-card" th:if="${errorMessage}" style="margin-top:1rem; background:#fbe9e7;">
+                        <span class="badge" style="background:#c62828; color:#fff;">Error</span>
+                        <p style="margin:0.25rem 0 0 0;" th:text="${errorMessage}">There was a problem</p>
+                    </div>
+
+                    <!-- History Section -->
+                    <div class="section-card" style="margin-top: 2rem;">
+                        <h4 style="margin-bottom: 1rem; color: var(--text-primary);">Application History</h4>
+                        <div class="table-responsive">
+                            <table class="data-table" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Pages</th>
+                                        <th>Qty</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="item : ${history}">
+                                        <td th:text="${item.date}">Date</td>
+                                        <td th:text="${item.pages} + ' Pages'">10 Pages</td>
+                                        <td th:text="${item.quantity} + ' Book(s)'">1 Book</td>
+                                        <td>
+                                            <span class="badge"
+                                                th:classappend="${item.status == 'Success' ? 'success' : (item.status == 'Declined' ? 'error' : (item.status == 'Pending' ? 'info' : 'secondary'))}"
+                                                th:text="${item.status}">Pending</span>
+                                        </td>
+                                    </tr>
+                                    <tr th:if="${#lists.isEmpty(history)}">
+                                        <td colspan="4" style="text-align: center; color: var(--text-secondary);">No
+                                            previous applications.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="text-center" style="margin-top:1rem;">
+                        <a href="/home" class="muted-text">Back to Home</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/js/dashboard.js"></script>
+</body>
+
+</html>

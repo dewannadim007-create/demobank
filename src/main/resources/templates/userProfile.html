@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - E-Wallet Banking</title>
+    <link rel="stylesheet" href="/css/modern-banking.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- INLINED SIDEBAR -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fas fa-university"></i> <span>E-WALLET</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a th:href="@{/home}">
+                        <i class="fas fa-home"></i> <span>Dashboard</span>
+                    </a></li>
+                <li><a th:href="@{/ebanking}">
+                        <i class="fas fa-university"></i> <span>E-Banking</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-send-money}">
+                        <i class="fas fa-paper-plane"></i> <span>Send Money</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-utility}">
+                        <i class="fas fa-lightbulb"></i> <span>Bill Pay</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-statement}">
+                        <i class="fas fa-file-invoice-dollar"></i> <span>Statement</span>
+                    </a></li>
+                <li><a th:href="@{/home/to-menu}" class="active">
+                        <i class="fas fa-cog"></i> <span>Settings</span>
+                    </a></li>
+                <li><a th:href="@{/logout}" style="color: var(--danger);">
+                        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                    </a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- INLINED MOBILE HEADER -->
+            <div class="mobile-header">
+                <h3>E-WALLET</h3>
+                <div class="mobile-actions">
+                    <button id="themeToggleMobile" class="toggle-btn"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+
+            <!-- INLINED TOP BAR -->
+            <!-- INLINED TOP BAR -->
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <button id="sidebarToggle" class="toggle-btn" title="Toggle Sidebar"><i
+                            class="fas fa-bars"></i></button>
+                    <h2 class="page-title">My Profile</h2>
+                </div>
+
+                <div class="top-bar-center">
+                    <!-- Search is not usually needed on profile page, so we leave it empty or put a decorative element to keep layout clean -->
+                </div>
+
+                <div class="user-actions">
+                    <button class="icon-btn" onclick="window.location.href='/notifications'"><i
+                            class="fas fa-bell"></i></button>
+                    <button id="themeToggle" class="icon-btn" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+                    <div class="user-profile">
+                        <div class="avatar"
+                            style="background-color: var(--secondary-color); color: var(--primary-dark);">U</div>
+                        <div class="user-info">
+                            <span class="user-name" th:text="${name}">User</span>
+                            <span class="user-role">Customer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE CONTENT -->
+            <section class="page-content">
+                <div class="grid-2"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto;">
+
+                    <!-- Identity Card -->
+                    <div class="section-card"
+                        style="text-align: center; padding: 2.5rem; position: relative; overflow: hidden;">
+                        <div
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));">
+                        </div>
+
+                        <div
+                            style="width: 120px; height: 120px; margin: 0 auto 1.5rem; border-radius: 50%; background: linear-gradient(135deg, #e0f2f1, #b2dfdb); display: flex; align-items: center; justify-content: center; border: 4px solid white; box-shadow: var(--shadow-md);">
+                            <i class="fas fa-user" style="font-size: 3.5rem; color: var(--primary-color);"></i>
+                        </div>
+
+                        <h2 style="margin: 0; color: var(--text-primary); font-family: var(--heading-font);"
+                            th:text="${name}">User Name</h2>
+                        <p style="color: var(--text-secondary); margin: 0.5rem 0 1.5rem;" th:text="${email}">
+                            user@example.com</p>
+
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <a href="/change-password" class="btn btn-secondary"><i class="fas fa-key"></i> Change
+                                Password</a>
+                        </div>
+                    </div>
+
+                    <!-- Personal Details -->
+                    <div class="section-card">
+                        <h3
+                            style="margin-top: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1.5rem;">
+                            Personal Details</h3>
+
+                        <div style="display: grid; gap: 1.5rem;">
+                            <div style="display: flex; flex-direction: column;">
+                                <label
+                                    style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; text-transform: uppercase;">Mobile
+                                    Number</label>
+                                <div
+                                    style="display: flex; align-items: center; gap: 10px; font-size: 1.1rem; font-weight: 600;">
+                                    <i class="fas fa-mobile-alt" style="color: var(--primary-color);"></i>
+                                    <span th:text="${mobile}">01700000000</span>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; flex-direction: column;">
+                                <label
+                                    style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; text-transform: uppercase;">Account
+                                    Number</label>
+                                <div
+                                    style="display: flex; align-items: center; gap: 10px; font-size: 1.1rem; font-weight: 600;">
+                                    <i class="fas fa-university" style="color: var(--primary-color);"></i>
+                                    <span th:text="${account}">1234567890</span>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; flex-direction: column;">
+                                <label
+                                    style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; text-transform: uppercase;">National
+                                    ID (NID)</label>
+                                <div
+                                    style="display: flex; align-items: center; gap: 10px; font-size: 1.1rem; font-weight: 600;">
+                                    <i class="fas fa-id-card" style="color: var(--primary-color);"></i>
+                                    <span th:text="${nid}">1234567890123</span>
+                                </div>
+                            </div>
+                            <div style="display: flex; flex-direction: column;">
+                                <label
+                                    style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; text-transform: uppercase;">Date
+                                    of Birth</label>
+                                <div
+                                    style="display: flex; align-items: center; gap: 10px; font-size: 1.1rem; font-weight: 600;">
+                                    <i class="fas fa-birthday-cake" style="color: var(--primary-color);"></i>
+                                    <span th:text="${dob}">01-01-1990</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/js/dashboard.js"></script>
+</body>
+
+</html>

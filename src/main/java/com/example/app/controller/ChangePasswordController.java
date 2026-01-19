@@ -1,0 +1,117 @@
+package com.example.app.controller;
+
+import com.example.app.model.User;
+import com.example.app.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import jakarta.servlet.http.HttpSession;
+
+/**
+ * ChangePasswordController - Converted from JavaFX to Spring Boot
+ * All original business logic preserved
+ */
+@Controller
+public class ChangePasswordController {
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
+    /**
+     * Show change password page
+     */
+    @GetMapping("/change-password")
+    public String showChangePasswordPage(HttpSession session, Model model) {
+        User loggedUser = (User) session.getAttribute("loggedUser");
+
+        if (loggedUser == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("user", loggedUser);
+        return "changePassword";
+    }
+
+    /**
+     * Submit password change
+     * Original: submit() method - ALL VALIDATION LOGIC PRESERVED
+     */
+    @PostMapping("/api/change-password")
+    public String submit(@RequestParam("currentPassword") String currentPassword,
+            @RequestParam("newPassword") String newPassword,
+            @RequestParam("confirmNewPassword") String confirmNewPassword,
+            HttpSession session,
+            RedirectAttributes redirectAttributes) {
+
+        User loggedUser = (User) session.getAttribute("loggedUser");
+
+        if (loggedUser == null) {
+            return "redirect:/login";
+        }
+
+        // ORIGINAL VALIDATION LOGIC - EXACT SAME
+        boolean check = true;
+
+        // Current password validation - EXACT SAME LOGIC
+        if (currentPassword != null && !currentPassword.isEmpty()) {
+            int length = currentPassword.length();
+            if (length > 8 || length == 7 || length == 6 || length == 5 ||
+                    length == 4 || length == 3 || length == 2 || length == 1) {
+                check = false;
+            }
+        } else {
+            // Treat null/empty as invalid if strict adherence is needed,
+            // though original code only checked length if not null/empty.
+            // Assuming required parameter, Spring ensures it's present,
+            // but for safety/IDE warning:
+            if (currentPassword == null)
+                check = false;
+        }
+
+        // New password validation - EXACT SAME LOGIC
+        if (newPassword != null && !newPassword.isEmpty()) {
+            int length = newPassword.length();
+            if (length > 8 || length == 7 || length == 6 || length == 5 ||
+                    length == 4 || length == 3 || length == 2 || length == 1) {
+                check = false;
+            }
+        } else {
+            check = false;
+        }
+
+        // Confirm password match validation - EXACT SAME LOGIC
+        if (newPassword == null || !newPassword.equals(confirmNewPassword)) {
+            check = false;
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    "New Password And Confirm Password Cannot Be Different");
+            return "redirect:/change-password";
+        }
+
+        // ORIGINAL BUSINESS LOGIC - EXACT SAME
+        if (check) {
+            UserService.changePassword(loggedUser.getMobile(), newPassword, mongoTemplate);
+            redirectAttributes.addFlashAttribute("successMessage",
+                    "Password Changed Successfully");
+            return "redirect:/change-password";
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    "Invalid password format");
+            return "redirect:/change-password";
+        }
+    }
+
+    /**
+     * Redirect to menu
+     * Original: changeToMenu() method
+     */
+    @GetMapping("/change-password/to-menu")
+    public String changeToMenu() {
+        return "redirect:/menu";
+    }
+}
