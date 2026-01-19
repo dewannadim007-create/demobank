@@ -34,9 +34,6 @@ logs/
 
 # Documentation
 *.md
-README.md
-ARCHITECTURE.md
-HTML_TEMPLATES.md
 
 # CI/CD
 .github/
