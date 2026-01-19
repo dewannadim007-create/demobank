@@ -11,16 +11,15 @@
 </head>
 
 <body>
-    <div
-        style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 1rem;">
-        <div class="auth-card" style="max-width: 540px; width: 100%; box-shadow: var(--shadow-lg);">
+    <div class="auth-layout">
+        <div class="auth-card w-100 max-w-540">
             <div class="text-center mb-2">
-                <h2 style="color: var(--primary-color); margin-bottom: 5px;"><i class="fas fa-university"></i>
+                <h2 class="text-primary m-0 mb-0-5"><i class="fas fa-university"></i>
                     E-WALLET BIZ</h2>
-                <p style="color: var(--text-secondary); font-size: 0.9rem;">Digital Banking Registration</p>
+                <p class="text-secondary font-size-0-9 m-0">Digital Banking Registration</p>
             </div>
 
-            <hr style="border: 0; border-top: 1px solid #eee; margin: 1.25rem 0;">
+            <hr class="divider my-1half">
 
             <form action="/register" method="post">
                 <div class="form-group">
@@ -60,19 +59,18 @@
                     <input type="password" name="password" class="form-control" placeholder="Min 6 chars" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                <button type="submit" class="btn btn-primary w-100 mt-1">
                     <i class="fas fa-check-circle"></i> Complete Registration
                 </button>
             </form>
 
             <div class="text-center mt-2">
-                <a href="/login" style="color: var(--text-secondary); font-size: 0.9rem;">
+                <a href="/login" class="text-secondary font-size-0-9">
                     <i class="fas fa-arrow-left"></i> Back to Login
                 </a>
             </div>
 
-            <div th:if="${error}" class="section-card"
-                style="margin-top: 15px; color: #721c24; background-color: #f8d7da; text-align: center;">
+            <div th:if="${error}" class="alert-error mt-1 text-center p-1 border-radius-sm">
                 <i class="fas fa-exclamation-triangle"></i> <span th:text="${error}">Error</span>
             </div>
         </div>

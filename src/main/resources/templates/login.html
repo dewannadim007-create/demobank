@@ -12,47 +12,43 @@
 
 <body>
     <div class="auth-layout">
-        <section class="page-content">
-            <div class="auth-card">
-                <div class="text-center mb-2">
-                    <h1 style="color: var(--text-primary); margin-bottom: 5px;">E-WALLET BIZ</h1>
-                    <p style="color: var(--text-secondary); margin: 0;">Secure Banking Portal</p>
-                </div>
+        <div class="auth-card">
+            <div class="text-center mb-2">
+                <h1 class="m-0 text-primary mb-0-5">E-WALLET BIZ</h1>
+                <p class="text-secondary m-0">Secure Banking Portal</p>
+            </div>
 
-                <div style="margin-top: 2rem;">
-                    <h3 class="text-center mb-2">Login To Account</h3>
+            <div class="mt-2">
+                <h3 class="text-center mb-2">Login To Account</h3>
 
-                    <form action="/api/auth/login" method="post">
-                        <div class="form-group">
-                            <label style="color: var(--text-secondary);">Mobile Number/ID</label>
-                            <input type="text" name="mobile" class="form-control" placeholder="017xxxxxxxx" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label style="color: var(--text-secondary);">Password</label>
-                            <input type="password" name="password" class="form-control" placeholder="••••••••" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary"
-                            style="width: 100%; padding: 12px; font-size: 16px;">SECURE LOGIN</button>
-                    </form>
-
-                    <div class="text-center mt-2" style="margin-top: 1.5rem;">
-                        <a href="/login/to-registration" style="color: var(--primary-color); font-weight: 600;">Open a
-                            New Account</a>
+                <form action="/api/auth/login" method="post">
+                    <div class="form-group">
+                        <label class="text-secondary">Mobile Number/ID</label>
+                        <input type="text" name="mobile" class="form-control" placeholder="017xxxxxxxx" required>
                     </div>
 
-                    <div th:if="${errorMessage}" class="section-card"
-                        style="margin-top: 15px; color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; text-align: center;">
-                        <span th:text="${errorMessage}">Error Message</span>
+                    <div class="form-group">
+                        <label class="text-secondary">Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="••••••••" required>
                     </div>
+
+                    <button type="submit" class="btn btn-primary w-100 p-3 font-size-1">SECURE LOGIN</button>
+                </form>
+
+                <div class="text-center mt-1half">
+                    <a href="/login/to-registration" class="text-primary font-weight-600">Open a
+                        New Account</a>
                 </div>
 
-                <div class="text-center mt-2">
-                    <a href="/login/back" style="color: var(--text-secondary); font-size: 0.9rem;">← Back to Home</a>
+                <div th:if="${errorMessage}" class="alert-error mt-1 text-center border-radius-sm p-1">
+                    <span th:text="${errorMessage}">Error Message</span>
                 </div>
             </div>
-        </section>
+
+            <div class="text-center mt-2">
+                <a href="/login/back" class="text-secondary font-size-0-9">← Back to Home</a>
+            </div>
+        </div>
     </div>
 </body>
 

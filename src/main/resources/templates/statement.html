@@ -85,10 +85,8 @@
             <section class="page-content">
 
                 <!-- 1. LIMITS SECTION (Existing) -->
-
-
                 <div class="section-card">
-                    <h3 style="margin-top:0;">Usage Limits</h3>
+                    <h3 class="mt-0">Usage Limits</h3>
                     <div class="table-responsive">
                         <table class="data-table">
                             <thead>
@@ -110,14 +108,14 @@
                                     <td>Daily</td>
                                     <td><span th:text="${dailyWalletTr}">0</span> / 50</td>
                                     <td><span th:text="'৳ ' + ${dailyWalletExpense}">0</span> / <span
-                                            class="badge info">৳
+                                            class="badge badge-info">৳
                                             25,000</span></td>
                                 </tr>
                                 <tr>
                                     <td>Monthly</td>
                                     <td><span th:text="${monthlyWalletTr}">0</span> / 500</td>
                                     <td><span th:text="'৳ ' + ${monthlyWalletExpense}">0</span> / <span
-                                            class="badge info">৳
+                                            class="badge badge-info">৳
                                             100,000</span></td>
                                 </tr>
 
@@ -131,38 +129,27 @@
                                     <td>Daily</td>
                                     <td><span th:text="${dailyAccountTr}">0</span> / 10</td>
                                     <td><span th:text="'৳ ' + ${dailyAccountExpense}">0</span> / <span
-                                            class="badge info">৳
+                                            class="badge badge-info">৳
                                             50,000</span></td>
                                 </tr>
                                 <tr>
                                     <td>Monthly</td>
                                     <td><span th:text="${monthlyAccountTr}">0</span> / 500</td>
                                     <td><span th:text="'৳ ' + ${monthlyAccountExpense}">0</span> / <span
-                                            class="badge info">৳ 500,000</span></td>
+                                            class="badge badge-info">৳ 500,000</span></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-
-
-                <div class="section-card" style="margin-top: 1rem; background: #e8eaf6; color: #3f51b5;">
+                <div class="section-card mt-1" style="background: #e8eaf6; color: #3f51b5;">
                     <i class="fas fa-info-circle"></i> Note: Limits are subject to change based on bank policy.
                 </div>
             </section>
         </main>
     </div>
     <script src="/js/dashboard.js"></script>
-    <style>
-        .text-danger {
-            color: #c0392b;
-        }
-
-        .text-success {
-            color: #27ae60;
-        }
-    </style>
 </body>
 
 </html>

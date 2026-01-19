@@ -78,25 +78,24 @@
             <section class="page-content">
 
 
-                <div class="section-card mb-2" style="border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                <div class="section-card mb-2 border-none shadow-sm">
                     <form action="/admin/transactions" method="get" class="filter-form">
 
                         <!-- Search -->
                         <div class="filter-group-search">
-                            <label class="muted-text font-weight-600 mb-1 d-block"
-                                style="font-size: 0.9em;">Search</label>
-                            <div class="filter-input-group">
+                            <label class="muted-text font-weight-600 mb-1 d-block font-size-0-9">Search</label>
+                            <div class="input-group m-0">
                                 <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                <input type="text" name="search" class="filter-input"
+                                <input type="text" name="search" class="form-control m-0 border-none"
                                     placeholder="RefID, Sender, Receiver..." th:value="${searchTerm}">
                             </div>
                         </div>
 
                         <!-- Type Filter -->
                         <div class="filter-group-select">
-                            <label class="muted-text font-weight-600 mb-1 d-block" style="font-size: 0.9em;">Transaction
+                            <label class="muted-text font-weight-600 mb-1 d-block font-size-0-9">Transaction
                                 Type</label>
-                            <select name="type" class="form-control m-0" style="background: var(--bg-color);">
+                            <select name="type" class="form-control m-0 bg-transparent">
                                 <option value="All">All Types</option>
                                 <option value="add to wallet" th:selected="${selectedType == 'add to wallet'}">Add Money
                                 </option>
@@ -117,10 +116,10 @@
                         </div>
 
                         <!-- Time Filter -->
-                        <div class="filter-group-select" style="min-width: 150px;">
-                            <label class="muted-text font-weight-600 mb-1 d-block" style="font-size: 0.9em;">Time
+                        <div class="filter-group-select min-w-150">
+                            <label class="muted-text font-weight-600 mb-1 d-block font-size-0-9">Time
                                 Period</label>
-                            <select name="days" class="form-control m-0" style="background: var(--bg-color);">
+                            <select name="days" class="form-control m-0 bg-transparent">
                                 <option value="All">All Time</option>
                                 <option value="1" th:selected="${selectedDays == '1'}">Today</option>
                                 <option value="7" th:selected="${selectedDays == '7'}">Last 7 Days</option>
@@ -129,18 +128,18 @@
                         </div>
 
                         <!-- Buttons -->
-                        <div class="d-flex gap-1" style="gap: 0.5rem;">
-                            <button type="submit" class="btn btn-primary btn-filter"><i class="fas fa-filter"></i>
+                        <div class="d-flex gap-0-5">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-filter"></i>
                                 Filter</button>
-                            <a href="/admin/transactions" class="btn btn-secondary btn-reset"><i
-                                    class="fas fa-undo"></i> Reset</a>
+                            <a href="/admin/transactions" class="btn btn-secondary"><i class="fas fa-undo"></i>
+                                Reset</a>
                         </div>
                     </form>
                 </div>
 
-                <div class="section-card" style="padding:0;">
+                <div class="section-card p-0">
                     <div class="table-responsive">
-                        <table class="table transaction-table">
+                        <table class="data-table">
                             <thead>
                                 <tr>
                                     <th>RefID</th>
@@ -153,18 +152,17 @@
                             </thead>
                             <tbody>
                                 <tr th:each="transaction : ${transactions}">
-                                    <td class="text-muted" style="font-family: monospace;" th:text="${transaction.ref}">
+                                    <td class="text-secondary font-mono" th:text="${transaction.ref}">
                                         RefID</td>
                                     <td th:text="${transaction.date}">Date</td>
                                     <td th:text="${transaction.sender}">Sender</td>
                                     <td th:text="${transaction.receiver}">Receiver</td>
-                                    <td><span class="badge" th:text="${transaction.type}">Type</span></td>
-                                    <td class="amount-text" th:text="'৳ ' + ${transaction.amount}">Amount</td>
+                                    <td><span class="badge badge-info" th:text="${transaction.type}">Type</span></td>
+                                    <td class="font-weight-600" th:text="'৳ ' + ${transaction.amount}">Amount</td>
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(transactions)}">
-                                    <td colspan="6" class="empty-state-search">
-                                        <i class="fas fa-search"
-                                            style="font-size: 2rem; margin-bottom: 10px; opacity: 0.5;"></i><br>
+                                    <td colspan="6" class="text-center p-3 muted-text">
+                                        <i class="fas fa-search font-size-2 opacity-0-5 mb-1"></i><br>
                                         No transactions found matching your criteria.
                                     </td>
                                 </tr>

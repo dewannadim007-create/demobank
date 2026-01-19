@@ -73,8 +73,6 @@
 
             <section class="page-content">
 
-
-
                 <div class="section-card mb-1">
                     <form action="/admin/cheque-status" method="get" class="admin-filter-bar">
                         <input type="text" name="search" class="form-control admin-search-input"
@@ -93,7 +91,7 @@
                     </form>
                 </div>
 
-                <div class="section-card" style="padding:0;">
+                <div class="section-card p-0">
                     <div class="table-responsive">
                         <table class="data-table cheque-table">
                             <thead>
@@ -108,8 +106,8 @@
                             </thead>
                             <tbody>
                                 <tr th:each="cheque : ${cheques}" onclick="window.selectRow(this)"
-                                    class="table-row-link">
-                                    <td style="font-family: monospace;" th:text="${cheque.id}">Account</td>
+                                    class="cursor-pointer hover-bg-light transition-bg">
+                                    <td class="font-mono text-secondary" th:text="${cheque.id}">Account</td>
                                     <td th:text="${cheque.name}">Name</td>
                                     <td th:text="${cheque.nid}">Page</td>
                                     <td th:text="${cheque.email}">Quantity</td>
@@ -121,9 +119,8 @@
                                     </td>
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(cheques)}">
-                                    <td colspan="6" style="text-align:center; padding: 1.5rem;" class="muted-text">
-                                        <i class="fas fa-money-check"
-                                            style="font-size: 2rem; margin-bottom: 10px; opacity: 0.5;"></i><br>
+                                    <td colspan="6" class="text-center p-3 muted-text">
+                                        <i class="fas fa-money-check font-size-2 opacity-0-5 mb-1"></i><br>
                                         No pending cheque book requests.
                                     </td>
                                 </tr>
@@ -132,21 +129,20 @@
                     </div>
                 </div>
 
-                <div id="actionPanel" class="section-card admin-action-panel">
-                    <div class="muted-text font-weight-600">Action for Account: <span id="displayAccount"
-                            style="color:var(--primary-color);"></span></div>
+                <div id="actionPanel" class="section-card admin-action-panel mt-1 is-hidden">
+                    <div class="muted-text font-weight-600 mb-0-5">Action for Account: <span id="displayAccount"
+                            class="text-primary"></span></div>
 
-                    <form action="/admin/api/cheque-status/update" method="post" class="d-flex gap-1">
+                    <form action="/admin/api/cheque-status/update" method="post" class="d-flex gap-1 flex-wrap">
                         <input type="hidden" name="accountId" id="selectedAccount">
 
-                        <button type="submit" name="action" value="approve" class="btn btn-primary"
-                            style="background-color: var(--success);">
-                            <i class="fas fa-check"></i> Success
+                        <button type="submit" name="action" value="approve" class="btn btn-primary badge-success-solid">
+                            <i class="fas fa-check"></i> Accept
                         </button>
 
-                        <button type="submit" name="action" value="reject" class="btn btn-secondary"
-                            style="background-color: #fdd835; color: #333;">
-                            <i class="fas fa-ban"></i> Declined
+                        <button type="submit" name="action" value="reject"
+                            class="btn btn-secondary badge-warn-solid text-dark">
+                            <i class="fas fa-ban"></i> Decline
                         </button>
 
                         <button type="submit" name="action" value="delete" class="btn btn-danger"
@@ -160,13 +156,19 @@
                     <i class="fas fa-info-circle"></i> Click a row to manage the request.
                 </p>
 
-                <div class="section-card mt-1 bg-success-light" th:if="${successMessage}">
-                    <span class="badge-success-solid">Success</span>
-                    <p class="m-0 mt-1" th:text="${successMessage}">Updated</p>
+                <div class="section-card mt-1 alert-success text-center" th:if="${successMessage}">
+                    <span class="badge badge-success-solid">Success</span>
+                    <p class="m-0 mt-0-5" th:text="${successMessage}">Updated</p>
                 </div>
 
                 <script src="/js/dashboard.js"></script>
                 <script src="/js/admin-dashboard.js"></script>
+                <style>
+                    /* Inline style for the hidden utility only if not in main CSS yet */
+                    .is-hidden {
+                        display: none;
+                    }
+                </style>
 </body>
 
 </html>

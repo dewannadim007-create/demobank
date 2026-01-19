@@ -131,12 +131,12 @@
 
                     <div class="section-card mt-1 bg-success-light" th:if="${successMessage}">
                         <span class="badge-success-solid">Success</span>
-                        <p class="m-0" style="margin-top: 0.25rem !important;" th:text="${successMessage}">Request
+                        <p class="m-0 mt-0-25" th:text="${successMessage}">Request
                             submitted</p>
                     </div>
                     <div class="section-card mt-1 bg-danger-light" th:if="${errorMessage}">
                         <span class="badge-danger-solid">Error</span>
-                        <p class="m-0" style="margin-top: 0.25rem !important;" th:text="${errorMessage}">There was a
+                        <p class="m-0 mt-0-25" th:text="${errorMessage}">There was a
                             problem</p>
                     </div>
 
@@ -160,7 +160,7 @@
                                         <td th:text="${item.quantity} + ' Book(s)'">1 Book</td>
                                         <td>
                                             <span class="badge"
-                                                th:classappend="${item.status == 'Success' ? 'success' : (item.status == 'Declined' ? 'error' : (item.status == 'Pending' ? 'info' : 'secondary'))}"
+                                                th:classappend="${item.status == 'Success' ? 'badge-success' : (item.status == 'Declined' ? 'badge-error' : (item.status == 'Pending' ? 'badge-info' : 'badge-secondary'))}"
                                                 th:text="${item.status}">Pending</span>
                                         </td>
                                     </tr>

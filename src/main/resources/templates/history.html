@@ -74,7 +74,7 @@
                     <div class="user-profile" onclick="window.location.href='/user-profile'">
                         <div class="avatar"
                             style="background-color: var(--secondary-color); color: var(--primary-dark);">U</div>
-                        <div class="user-info">
+                        <div class="user-info" style="display: none;">
                             <span class="user-name" th:text="${name}">User</span>
                             <span class="user-role">Customer</span>
                         </div>
@@ -85,29 +85,24 @@
             <!-- PAGE CONTENT -->
             <section class="page-content">
 
-
-
                 <!-- HISTORY & SEARCH SECTION -->
                 <div class="section-card">
 
                     <!-- Search Form -->
-                    <div
-                        style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 1rem;">
-                        <h3 style="margin:0;">Transactions</h3>
+                    <div class="d-flex flex-wrap justify-between align-center mb-1half gap-1">
+                        <h3 class="m-0">Transactions</h3>
 
-                        <form action="/history" method="get" class="form-inline"
-                            style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                        <form action="/history" method="get" class="form-inline d-flex gap-0-5 align-center flex-wrap">
 
                             <!-- Search Input -->
-                            <div class="input-group" style="margin: 0; min-width: 200px;">
+                            <div class="input-group m-0 min-w-200">
                                 <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                <input type="text" name="search" class="form-control" placeholder="Search..."
-                                    th:value="${searchTerm}" style="margin:0; border:none;">
+                                <input type="text" name="search" class="form-control m-0 border-none"
+                                    placeholder="Search..." th:value="${searchTerm}">
                             </div>
 
                             <!-- Type Filter -->
-                            <select name="type" class="form-control" style="width: auto; margin:0;"
-                                onchange="this.form.submit()">
+                            <select name="type" class="form-control w-auto m-0" onchange="this.form.submit()">
                                 <option value="All" th:selected="${selectedType == 'All'}">All Types</option>
                                 <option value="recharge" th:selected="${selectedType == 'recharge'}">Recharge</option>
                                 <option value="gas bill" th:selected="${selectedType == 'gas bill'}">Gas Bill</option>
@@ -126,8 +121,7 @@
                             </select>
 
                             <!-- Time Filter -->
-                            <select name="days" class="form-control" style="width: auto; margin:0;"
-                                onchange="this.form.submit()">
+                            <select name="days" class="form-control w-auto m-0" onchange="this.form.submit()">
                                 <option value="All" th:selected="${selectedDays == 'All'}">All Time</option>
                                 <option value="7" th:selected="${selectedDays == '7'}">Last 7 Days</option>
                                 <option value="30" th:selected="${selectedDays == '30'}">Last 30 Days</option>
@@ -153,20 +147,20 @@
                             </thead>
                             <tbody>
                                 <tr th:each="trx : ${transactions}">
-                                    <td style="white-space: nowrap;" th:text="${trx.date}">2026-01-01</td>
+                                    <td class="whitespace-nowrap" th:text="${trx.date}">2026-01-01</td>
 
-                                    <td style="font-family: monospace; font-size: 0.9em; color: var(--text-secondary);"
-                                        th:text="${trx.ref}">TXN-12345</td>
+                                    <td class="font-mono text-secondary font-size-0-9" th:text="${trx.ref}">TXN-12345
+                                    </td>
 
                                     <td>
-                                        <div style="display: flex; flex-direction: column;">
+                                        <div class="d-flex flex-column">
                                             <span th:if="${trx.sender == user.account or trx.sender == user.mobile}">
-                                                To: <span style="font-weight: 500;"
+                                                To: <span class="font-weight-500"
                                                     th:text="${trx.receiver}">Receiver</span>
                                             </span>
                                             <span
                                                 th:if="${trx.receiver == user.account or trx.receiver == user.mobile}">
-                                                From: <span style="font-weight: 500;"
+                                                From: <span class="font-weight-500"
                                                     th:text="${trx.sender}">Sender</span>
                                             </span>
                                         </div>
@@ -174,11 +168,11 @@
 
                                     <td>
                                         <span class="badge"
-                                            th:classappend="${trx.sender == user.account or trx.sender == user.mobile} ? 'warn' : 'info'"
+                                            th:classappend="${trx.sender == user.account or trx.sender == user.mobile} ? 'badge-warn' : 'badge-info'"
                                             th:text="${trx.type}">Type</span>
                                     </td>
 
-                                    <td style="font-weight: 600;"
+                                    <td class="font-weight-600"
                                         th:classappend="${trx.sender == user.account or trx.sender == user.mobile} ? 'text-danger' : 'text-success'">
                                         <span
                                             th:text="${trx.sender == user.account or trx.sender == user.mobile} ? '-' : '+'"></span>
@@ -186,13 +180,12 @@
                                     </td>
 
                                     <td>
-                                        <span class="badge success">Success</span>
+                                        <span class="badge badge-success">Success</span>
                                     </td>
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(transactions)}">
-                                    <td colspan="6" style="text-align: center; padding: 3rem;" class="muted-text">
-                                        <i class="fas fa-history"
-                                            style="font-size: 2rem; margin-bottom: 10px; opacity: 0.5;"></i><br>
+                                    <td colspan="6" class="text-center p-3 muted-text">
+                                        <i class="fas fa-history font-size-2 opacity-0-5 mb-1"></i><br>
                                         No transactions found matching your filters.
                                     </td>
                                 </tr>
@@ -205,15 +198,6 @@
         </main>
     </div>
     <script src="/js/dashboard.js"></script>
-    <style>
-        .text-danger {
-            color: #c0392b;
-        }
-
-        .text-success {
-            color: #27ae60;
-        }
-    </style>
 </body>
 
 </html>
