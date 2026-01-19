@@ -20,7 +20,6 @@ public class User {
     @Id
     private String id;
 
-    
     @NotBlank(message = "Name is required")
     private String name;
 
@@ -97,7 +96,7 @@ public class User {
         this.nid = nid;
     }
 
-    // Constructor for cheque table (as per your comment)
+    // Constructor for cheque table
     public User(String name, String id, String email, String address, String nid) {
         this();
         this.name = name;
@@ -113,7 +112,7 @@ public class User {
     }
 
     public void setId(String id) {
-        this.id = id; // FIXED: was setting to itself
+        this.id = id;
     }
 
     public String getName() {
@@ -185,7 +184,7 @@ public class User {
     }
 
     public void setAddress(String address) {
-        this.address = address; // FIXED: was setting to itself
+        this.address = address;
     }
 
     public Double getBalance() {

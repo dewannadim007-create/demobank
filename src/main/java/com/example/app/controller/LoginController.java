@@ -38,8 +38,6 @@ public class LoginController {
             HttpSession session,
             RedirectAttributes redirectAttributes) {
 
-        System.out.println("DEBUG: Login attempt for Mobile: " + mobile);
-
         if (mobile == null || mobile.isEmpty() || password == null || password.isEmpty()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Please enter mobile and password");
             return "redirect:/login";
@@ -48,7 +46,7 @@ public class LoginController {
         // Check for admin login
         User admin = userService.adminLogin(mobile, password);
         if (admin != null) {
-            System.out.println("DEBUG: Admin login success");
+
             session.setAttribute("loggedUser", admin);
             return "redirect:/admin/home";
         }
@@ -56,11 +54,11 @@ public class LoginController {
         // Check for user login
         User user = userService.login(mobile, password);
         if (user != null) {
-            System.out.println("DEBUG: User login success for: " + user.getName());
+
             session.setAttribute("loggedUser", user);
             return "redirect:/home";
         } else {
-            System.out.println("DEBUG: User login FAILED - User not found or password mismatch");
+
             redirectAttributes.addFlashAttribute("errorMessage", "Invalid Mobile or Password");
             return "redirect:/login";
         }
