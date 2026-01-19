@@ -27,77 +27,8 @@ public class DataSeeder {
             // mongoTemplate.dropCollection(Utility.class);// Preserved
             // Transactions & Checkbooks are PRESERVED (Not dropped/seeded)
 
-            // 1. Seed Branches (SKIPPED)
-            /*
-             * System.out.println("Seeding 15 Branches...");
-             * List<Branch> branches = Arrays.asList(
-             * // Dhaka North
-             * new Branch("Gulshan Head Office", "Main", "Gulshan-1, Dhaka", "BR001",
-             * "Dhaka"),
-             * new Branch("Banani Branch", "Sub-branch", "Banani Road 11", "BR002",
-             * "Dhaka"),
-             * new Branch("Uttara Sector 4", "Sub-branch", "Uttara, Dhaka", "BR003",
-             * "Dhaka"),
-             * new Branch("Uttara Sector 13", "ATM", "Uttara, Dhaka", "ATM001", "Dhaka"),
-             * new Branch("Mirpur 10", "Sub-branch", "Mirpur 10 Roundabout", "BR004",
-             * "Dhaka"),
-             * new Branch("Mirpur DOHS", "ATM", "Mirpur DOHS Shopping Complex", "ATM002",
-             * "Dhaka"),
-             * new Branch("Bashundhara R/A", "Sub-branch", "Bashundhara Gate", "BR005",
-             * "Dhaka"),
-             * 
-             * // Dhaka South
-             * new Branch("Motijheel Principal", "Main", "Motijheel C/A", "BR006", "Dhaka"),
-             * new Branch("Dhanmondi 27", "Sub-branch", "Dhanmondi, Dhaka", "BR007",
-             * "Dhaka"),
-             * new Branch("Dhanmondi 8", "ATM", "Dhanmondi 8, Dhaka", "ATM003", "Dhaka"),
-             * new Branch("Lalbagh Branch", "Sub-branch", "Lalbagh Fort Road", "BR008",
-             * "Dhaka"),
-             * 
-             * // Regional
-             * new Branch("Agrabad Branch", "Main", "Agrabad C/A, Chittagong", "BR009",
-             * "Chittagong"),
-             * new Branch("GEC Circle ATM", "ATM", "GEC Circle, Chittagong", "ATM004",
-             * "Chittagong"),
-             * new Branch("Zindabazar Branch", "Main", "Zindabazar, Sylhet", "BR010",
-             * "Sylhet"),
-             * new Branch("Rajshahi Zero Point", "Sub-branch", "Zero Point, Rajshahi",
-             * "BR011", "Rajshahi"));
-             * // Example coordinates for a few key ones
-             * branches.get(0).setLatitude(23.7925);
-             * branches.get(0).setLongitude(90.4078); // Gulshan
-             * branches.get(7).setLatitude(23.7330);
-             * branches.get(7).setLongitude(90.4172); // Motijheel
-             * 
-             * mongoTemplate.insertAll(branches);
-             */
-
-            // 2. Seed Utilities (SKIPPED)
-            /*
-             * System.out.println("Seeding Utilities...");
-             * List<Utility> utilities = new ArrayList<>();
-             * 
-             * // Electricity (4 Types)
-             * utilities.add(new Utility("DESCO", "Prepaid", "Electricity"));
-             * utilities.add(new Utility("DESCO", "Postpaid", "Electricity"));
-             * utilities.add(new Utility("DPDC", "Prepaid", "Electricity"));
-             * utilities.add(new Utility("DPDC", "Postpaid", "Electricity"));
-             * // Gas (4 Types)
-             * utilities.add(new Utility("Titas", "Prepaid", "Gas"));
-             * utilities.add(new Utility("Titas", "Postpaid", "Gas"));
-             * utilities.add(new Utility("Karnaphuli", "Prepaid", "Gas"));
-             * utilities.add(new Utility("Karnaphuli", "Postpaid", "Gas"));
-             * // Mobile (7 Operators/Types)
-             * utilities.add(new Utility("Grameenphone", "Prepaid", "Mobile"));
-             * utilities.add(new Utility("Grameenphone", "Postpaid", "Mobile"));
-             * utilities.add(new Utility("Robi", "Prepaid", "Mobile"));
-             * utilities.add(new Utility("Robi", "Postpaid", "Mobile"));
-             * utilities.add(new Utility("Banglalink", "Prepaid", "Mobile"));
-             * utilities.add(new Utility("Banglalink", "Postpaid", "Mobile"));
-             * utilities.add(new Utility("Teletalk", "Prepaid", "Mobile"));
-             * 
-             * mongoTemplate.insertAll(utilities);
-             */
+            // 1. Seed Branches (SKIPPED because collection is preserved)
+            // 2. Seed Utilities (SKIPPED because collection is preserved)
 
             // 3. Seed Users (7 Total)
             System.out.println("Seeding Users...");
