@@ -1,42 +1,119 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{fragments/layout :: adminDashboard('Admin Menu','admin-home',~{::section})}">
-<section>
-    <div class="section-card d-flex justify-between align-center gap-1">
-        <div>
-            <p class="muted-text m-0">Quick links for admin tasks</p>
-            <h2 class="m-0">Admin Menu</h2>
-        </div>
-        <a href="/admin/home" class="btn btn-secondary">Back to Dashboard</a>
-    </div>
+<html xmlns:th="http://www.thymeleaf.org">
 
-    <div class="card-grid" style="--columns:3; gap:1rem;">
-        <div class="section-card cursor-pointer" onclick="window.location.href='/admin/user-list'">
-            <div class="badge">Users</div>
-            <h4 class="mt-0-5 mb-0">View Users</h4>
-            <p class="muted-text mt-0-25 mb-0">Review and manage customers</p>
-        </div>
-        <div class="section-card cursor-pointer" onclick="window.location.href='/admin/add-user'">
-            <div class="badge">Create</div>
-            <h4 class="mt-0-5 mb-0">Add User</h4>
-            <p class="muted-text mt-0-25 mb-0">Register a new account</p>
-        </div>
-        <div class="section-card cursor-pointer" onclick="window.location.href='/admin/transaction-list'">
-            <div class="badge">Monitor</div>
-            <h4 class="mt-0-5 mb-0">All Transactions</h4>
-            <p class="muted-text mt-0-25 mb-0">Review transaction activity</p>
-        </div>
-        <div class="section-card cursor-pointer" onclick="window.location.href='/admin/cheque-status'">
-            <div class="badge">Cheque</div>
-            <h4 class="mt-0-5 mb-0">Cheque Requests</h4>
-            <p class="muted-text mt-0-25 mb-0">Process cheque book applications</p>
-        </div>
-        <div class="section-card cursor-pointer" onclick="window.location.href='/admin/logout'">
-            <div class="badge badge-pill badge-danger-solid">Logout</div>
-            <h4 class="mt-0-5 mb-0">Sign out</h4>
-            <p class="muted-text mt-0-25 mb-0">End admin session</p>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Menu - Admin E-Wallet</title>
+    <link rel="stylesheet" href="/css/modern-banking.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="admin-theme">
+    <div class="dashboard-container">
+        <!-- ADMIN SIDEBAR -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fas fa-shield-alt"></i> <span>ADMIN</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a th:href="@{/admin/home}">
+                        <i class="fas fa-home"></i> <span>Dashboard</span>
+                    </a></li>
+                <li><a th:href="@{/admin/users}">
+                        <i class="fas fa-users"></i> <span>Manage Users</span>
+                    </a></li>
+                <li><a th:href="@{/admin/add-user}">
+                        <i class="fas fa-user-plus"></i> <span>Add User</span>
+                    </a></li>
+                <li><a th:href="@{/admin/transactions}">
+                        <i class="fas fa-exchange-alt"></i> <span>Transactions</span>
+                    </a></li>
+                <li><a th:href="@{/admin/cheque-status}">
+                        <i class="fas fa-money-check"></i> <span>Cheque Books</span>
+                    </a></li>
+                <li><a th:href="@{/admin/branches}">
+                        <i class="fas fa-map-marker-alt"></i> <span>Locations</span>
+                    </a></li>
+                <li><a th:href="@{/admin/logout}" class="text-danger">
+                        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                    </a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div class="mobile-header">
+                <h3>ADMIN MENU</h3>
+                <div class="mobile-actions">
+                    <button id="themeToggleMobile" class="toggle-btn"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+
+            <!-- TOP BAR -->
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <button id="sidebarToggle" class="toggle-btn" title="Toggle Sidebar"><i
+                            class="fas fa-bars"></i></button>
+                    <h2 class="page-title">Admin Menu</h2>
+                </div>
+
+                <div class="top-bar-center">
+                </div>
+
+                <div class="user-actions">
+                    <button class="icon-btn"><i class="fas fa-bell"></i></button>
+                    <button id="themeToggle" class="icon-btn" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+                    <div class="user-profile">
+                        <div class="avatar">A</div>
+                        <div class="user-info">
+                            <span class="user-name">Administrator</span>
+                            <span class="user-role">Super Admin</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="page-content">
+                <div class="section-card d-flex justify-between align-center gap-1 mb-1half">
+                    <div>
+                        <p class="muted-text m-0">Quick links for admin tasks</p>
+                        <h2 class="m-0">Admin Menu</h2>
+                    </div>
+                    <a href="/admin/home" class="btn btn-secondary">Back to Dashboard</a>
+                </div>
+
+                <div class="card-grid grid-3 gap-1">
+                    <div class="section-card cursor-pointer" onclick="window.location.href='/admin/user-list'">
+                        <div class="badge">Users</div>
+                        <h4 class="mt-0-5 mb-0">View Users</h4>
+                        <p class="muted-text mt-0-25 mb-0">Review and manage customers</p>
+                    </div>
+                    <div class="section-card cursor-pointer" onclick="window.location.href='/admin/add-user'">
+                        <div class="badge">Create</div>
+                        <h4 class="mt-0-5 mb-0">Add User</h4>
+                        <p class="muted-text mt-0-25 mb-0">Register a new account</p>
+                    </div>
+                    <div class="section-card cursor-pointer" onclick="window.location.href='/admin/transaction-list'">
+                        <div class="badge">Monitor</div>
+                        <h4 class="mt-0-5 mb-0">All Transactions</h4>
+                        <p class="muted-text mt-0-25 mb-0">Review transaction activity</p>
+                    </div>
+                    <div class="section-card cursor-pointer" onclick="window.location.href='/admin/cheque-status'">
+                        <div class="badge">Cheque</div>
+                        <h4 class="mt-0-5 mb-0">Cheque Requests</h4>
+                        <p class="muted-text mt-0-25 mb-0">Process cheque book applications</p>
+                    </div>
+                    <div class="section-card cursor-pointer" onclick="window.location.href='/admin/logout'">
+                        <div class="badge badge-pill badge-danger-solid">Logout</div>
+                        <h4 class="mt-0-5 mb-0">Sign out</h4>
+                        <p class="muted-text mt-0-25 mb-0">End admin session</p>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
-</section>
+    <script src="/js/dashboard.js"></script>
+</body>
 
 </html>

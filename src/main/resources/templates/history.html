@@ -39,7 +39,7 @@
                 <li><a th:href="@{/home/to-menu}">
                         <i class="fas fa-cog"></i> <span>Settings</span>
                     </a></li>
-                <li><a th:href="@{/logout}" style="color: var(--danger);">
+                <li><a th:href="@{/logout}" class="text-danger">
                         <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
                     </a></li>
             </ul>
@@ -72,9 +72,8 @@
                             class="fas fa-bell"></i></button>
                     <button id="themeToggle" class="icon-btn" title="Toggle Theme"><i class="fas fa-moon"></i></button>
                     <div class="user-profile" onclick="window.location.href='/user-profile'">
-                        <div class="avatar"
-                            style="background-color: var(--secondary-color); color: var(--primary-dark);">U</div>
-                        <div class="user-info" style="display: none;">
+                        <div class="avatar custom-color">U</div>
+                        <div class="user-info d-none">
                             <span class="user-name" th:text="${name}">User</span>
                             <span class="user-role">Customer</span>
                         </div>

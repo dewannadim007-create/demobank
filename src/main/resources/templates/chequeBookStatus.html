@@ -33,7 +33,7 @@
                 <li><a th:href="@{/admin/cheque-status}" class="active">
                         <i class="fas fa-money-check"></i> <span>Cheque Books</span>
                     </a></li>
-                <li><a th:href="@{/admin/logout}" style="color: var(--danger);">
+                <li><a th:href="@{/admin/logout}" class="text-danger">
                         <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
                     </a></li>
             </ul>
@@ -163,12 +163,7 @@
 
                 <script src="/js/dashboard.js"></script>
                 <script src="/js/admin-dashboard.js"></script>
-                <style>
-                    /* Inline style for the hidden utility only if not in main CSS yet */
-                    .is-hidden {
-                        display: none;
-                    }
-                </style>
+
 </body>
 
 </html>
