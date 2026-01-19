@@ -93,7 +93,7 @@ If you don't have a MongoDB instance:
 
 ### MongoDB Connection String Format
 ```
-mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>?retryWrites=true&w=majority
+mongodb+srv://<username>:<password>@<cluster-hostname>.mongodb.net/<database>?retryWrites=true&w=majority
 ```
 
 ### Free Tier Limitations

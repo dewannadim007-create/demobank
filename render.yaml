@@ -3,7 +3,7 @@ services:
   - type: web
     name: e-wallet-biz
     runtime: docker
-    plan: free  # Change to 'starter' or other plans as needed
+    plan: free  # Change to paid plans like 'starter', 'standard', or 'pro' as needed
     branch: main  # Change to your default branch if different
     envVars:
       - key: MONGODB_URI
